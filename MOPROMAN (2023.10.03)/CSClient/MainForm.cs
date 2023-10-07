@@ -53,7 +53,8 @@ public partial class MainForm : Form
     private readonly int POCET_ZAZNAMOV = 8; //pocet vypisovanych zaznamov do GUI
     
         private byte[] Buffer = new byte[BYTE_LENGTH];
-    int Amount = BYTE_LENGTH;
+    //int Amount = BYTE_LENGTH;
+        int Amount = 60;
 
 
 
@@ -252,6 +253,7 @@ public partial class MainForm : Form
                 ERROR_TIME = ERROR_TIME,
                 WAITING_TIME = WAITING_TIME
             });
+            /*
 
             if (DB.UlozDB())
             {
@@ -263,7 +265,7 @@ public partial class MainForm : Form
                 this.Loguj("### ### ###", MessageBoxIcon.Error);
                 this.Loguj("Zaznam sa nepodarilo ulozit do DB!", MessageBoxIcon.Error);
                 this.Loguj("### ### ###", MessageBoxIcon.Error);
-            }            
+            }*/            
         }
         /// <summary>
         /// zapise 0 do signalizacneho bytu na PLC
@@ -305,7 +307,7 @@ public partial class MainForm : Form
         private void PripojKPLC(Object myObject, EventArgs myEventArgs)
         {
         int Result = Rack = Slot = 0;
-            Slot = 0;
+            Slot = 2;
 
         Result = Client.ConnectTo(IP_PLC, Rack, Slot);
 
@@ -322,7 +324,7 @@ public partial class MainForm : Form
             //##########################################
             //##########################################
             this.ReadArea();
-            tmrRead.Enabled = true;
+            //tmrRead.Enabled = true;
             //##########################################
             //##########################################
             //btnPripojPlc.Enabled = false;
@@ -331,7 +333,7 @@ public partial class MainForm : Form
         {          
             if (tmrRead.Enabled == true) tmrRead.Enabled = false;
             //v pripade chyby spustim druhy casovac nastaveny na periodu 5s a tri krat v intervale jednej sekundy sa pokusim pripojit
-            if (tmrErr.Enabled == false) tmrErr.Enabled = true;
+            //if (tmrErr.Enabled == false) tmrErr.Enabled = true;
 
             this.Loguj("Nepodarilo sa pripojiť k PLC!", MessageBoxIcon.Error);
         }
@@ -443,7 +445,7 @@ public partial class MainForm : Form
     //klikacie citanie
     private void btnCitaj_Click(object sender, EventArgs e)
     {
-            //this.ReadArea();
+            this.ReadArea();
             SpracujZaznamDB();
     }
 
