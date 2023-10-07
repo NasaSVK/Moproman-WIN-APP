@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ns_whirlpool2_db_model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="reports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DATE_TIME" Type="datetime" Nullable="false" />
+          <Property Name="SHIFT" Type="varchar" MaxLength="1" />
+          <Property Name="R1-B" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="R1-S" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="R1-F" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="R2-B" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="R2-S" Type="varchar" MaxLength="1" />
+          <Property Name="R2-F" Type="varchar" MaxLength="1" />
+          <Property Name="OK%" Type="real" />
+          <Property Name="NOK%" Type="real" />
+          <Property Name="CNT_OK" Type="int" />
+          <Property Name="CNT_NOK" Type="int" />
+          <Property Name="UR1" Type="int" />
+          <Property Name="UR2" Type="int" />
+          <Property Name="R1%" Type="real" />
+          <Property Name="R2%" Type="real" />
+          <Property Name="ERROR" Type="char" MaxLength="1" />
+          <Property Name="ERROR_TIME" Type="real" />
+          <Property Name="CYCLE_TIME" Type="real" />
+          <Property Name="WAITING_TIME" Type="real" />
+        </EntityType>
+        <EntityContainer Name="ns_whirlpool2_db_modelStoreContainer">
+          <EntitySet Name="reports" EntityType="Self.reports" Schema="whirlpool_db_sm" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ns_whirlpool2_db_model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="report2s">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SHIFT" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="R1_B" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="R1_S" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="R1_F" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="R2_B" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="R2_S" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="R2_F" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="OK_" Type="Single" />
+          <Property Name="NOK_" Type="Single" />
+          <Property Name="CNT_OK" Type="Int32" />
+          <Property Name="CNT_NOK" Type="Int32" />
+          <Property Name="UR1" Type="Int32" />
+          <Property Name="UR2" Type="Int32" />
+          <Property Name="R1_" Type="Single" />
+          <Property Name="R2_" Type="Single" />
+          <Property Name="ERROR" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ERROR_TIME" Type="Single" />
+          <Property Name="CYCLE_TIME" Type="Single" />
+          <Property Name="WAITING_TIME" Type="Single" />
+        </EntityType>
+        <EntityContainer Name="cs_whirlpool2_db" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="reports" EntityType="ns_whirlpool2_db_model.report2s" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ns_whirlpool2_db_modelStoreContainer" CdmEntityContainer="cs_whirlpool2_db">
+          <EntitySetMapping Name="reports">
+            <EntityTypeMapping TypeName="ns_whirlpool2_db_model.report2s">
+              <MappingFragment StoreEntitySet="reports">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DATE_TIME" ColumnName="DATE_TIME" />
+                <ScalarProperty Name="SHIFT" ColumnName="SHIFT" />
+                <ScalarProperty Name="R1_B" ColumnName="R1-B" />
+                <ScalarProperty Name="R1_S" ColumnName="R1-S" />
+                <ScalarProperty Name="R1_F" ColumnName="R1-F" />
+                <ScalarProperty Name="R2_B" ColumnName="R2-B" />
+                <ScalarProperty Name="R2_S" ColumnName="R2-S" />
+                <ScalarProperty Name="R2_F" ColumnName="R2-F" />
+                <ScalarProperty Name="OK_" ColumnName="OK%" />
+                <ScalarProperty Name="NOK_" ColumnName="NOK%" />
+                <ScalarProperty Name="CNT_OK" ColumnName="CNT_OK" />
+                <ScalarProperty Name="CNT_NOK" ColumnName="CNT_NOK" />
+                <ScalarProperty Name="UR1" ColumnName="UR1" />
+                <ScalarProperty Name="UR2" ColumnName="UR2" />
+                <ScalarProperty Name="R1_" ColumnName="R1%" />
+                <ScalarProperty Name="R2_" ColumnName="R2%" />
+                <ScalarProperty Name="ERROR" ColumnName="ERROR" />
+                <ScalarProperty Name="ERROR_TIME" ColumnName="ERROR_TIME" />
+                <ScalarProperty Name="CYCLE_TIME" ColumnName="CYCLE_TIME" />
+                <ScalarProperty Name="WAITING_TIME" ColumnName="WAITING_TIME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
