@@ -49,12 +49,12 @@ public partial class MainForm : Form
 
         private byte SIG_BYTE { get { return Buffer[Bytes.SIG]; } set { Buffer[Bytes.SIG] = value; } }
 
-    private static readonly int BYTE_LENGTH = 64;
-    private readonly int POCET_ZAZNAMOV = 8; //pocet vypisovanych zaznamov do GUI
+        private static readonly int BYTE_LENGTH = 168;
+        private readonly int POCET_ZAZNAMOV = 8; //pocet vypisovanych zaznamov do GUI
     
         private byte[] Buffer = new byte[BYTE_LENGTH];
-    //int Amount = BYTE_LENGTH;
-        int Amount = 60;
+        int Amount = BYTE_LENGTH;
+       
 
 
 
@@ -62,7 +62,7 @@ public partial class MainForm : Form
 
     int Rack = 0;
     int Slot = 2;
-    int DB_Number = 100;
+    int DB_Number = 1;
 
     int ErrorRead = 0; //aktualny stav chyb; ak precita viac ako 3 chyby za sebou odpoji sa a nesledne sa snazi nasledne pripojit             
 
@@ -148,7 +148,7 @@ public partial class MainForm : Form
 
             //#################################################################################################################
             //Result = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
-            Result = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
+            Result = Client.ReadArea(S7Consts.S7AreaMK, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
             //#################################################################################################################
 
             //ak je resut OK (0) vypise do logu OK, ak nie je OK vypisem nieco ine
