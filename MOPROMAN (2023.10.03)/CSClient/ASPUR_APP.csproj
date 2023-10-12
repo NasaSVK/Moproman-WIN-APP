@@ -97,21 +97,6 @@
     <Compile Include="Bytes.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DB.cs" />
-    <Compile Include="edm_whirlpool_db.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>edm_whirlpool_db.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="edm_whirlpool_db.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>edm_whirlpool_db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="edm_whirlpool_db.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>edm_whirlpool_db.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Helpers.cs" />
     <Compile Include="InfoForm.cs">
       <SubType>Form</SubType>
@@ -125,11 +110,26 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="mopromanMD.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mopromanMD.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mopromanMD.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mopromanMD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mopromanMD.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mopromanMD.edmx</DependentUpon>
+    </Compile>
     <Compile Include="MySqlDb.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="report2s.cs">
-      <DependentUpon>edm_whirlpool_db.tt</DependentUpon>
+    <Compile Include="record.cs">
+      <DependentUpon>mopromanMD.tt</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Sharp7.cs" />
@@ -150,12 +150,12 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <EntityDeploy Include="edm_whirlpool_db.edmx">
+    <EntityDeploy Include="mopromanMD.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>edm_whirlpool_db.Designer.cs</LastGenOutput>
+      <LastGenOutput>mopromanMD.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="edm_whirlpool_db.edmx.diagram">
-      <DependentUpon>edm_whirlpool_db.edmx</DependentUpon>
+    <None Include="mopromanMD.edmx.diagram">
+      <DependentUpon>mopromanMD.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -177,15 +177,15 @@
   <ItemGroup>
     <Content Include="ASPUR85.ico" />
     <Content Include="ASPUR85.png" />
-    <Content Include="edm_whirlpool_db.Context.tt">
+    <Content Include="mopromanMD.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>edm_whirlpool_db.edmx</DependentUpon>
-      <LastGenOutput>edm_whirlpool_db.Context.cs</LastGenOutput>
+      <DependentUpon>mopromanMD.edmx</DependentUpon>
+      <LastGenOutput>mopromanMD.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="edm_whirlpool_db.tt">
+    <Content Include="mopromanMD.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>edm_whirlpool_db.edmx</DependentUpon>
-      <LastGenOutput>edm_whirlpool_db.cs</LastGenOutput>
+      <DependentUpon>mopromanMD.edmx</DependentUpon>
+      <LastGenOutput>mopromanMD.cs</LastGenOutput>
     </Content>
     <None Include="Resources\ASPUR85.png" />
     <None Include="Resources\tuba_ICO.png" />

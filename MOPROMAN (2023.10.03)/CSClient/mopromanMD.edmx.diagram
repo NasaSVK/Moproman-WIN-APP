@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a5d1a4de821b453c8718117c8258968f" Name="Diagram1">
-        <EntityTypeShape EntityType="ns_whirlpool2_db_model.report2s" Width="3.125" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="c89cdcf14aa8400d93beb27ab9fb95b9" Name="Diagram1">
+        <EntityTypeShape EntityType="mopromanDBModel.record" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

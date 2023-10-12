@@ -121,7 +121,7 @@ namespace nsAspur.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" 192.168.45.12")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.45.12")]
         public string IP_PLC {
             get {
                 return ((string)(this["IP_PLC"]));

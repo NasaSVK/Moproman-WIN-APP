@@ -10,7 +10,7 @@ namespace nsAspur
 {
     class DB
     {
-        public static cs_whirlpool2_db Context;
+        public static mopromanDBEntities Context;
         
         public static void TestujDB()
         {
@@ -36,7 +36,7 @@ namespace nsAspur
         public static bool pripojDB()
         {
             ///String IP = Properties.Settings.Default.DBServerIP;
-            Context = new cs_whirlpool2_db();
+            Context = new mopromanDBEntities();
             //String IP = Context.Database.Connection.DataSource.Substring(0, Context.Database.Connection.DataSource.IndexOf("\\"));
             String IP = Context.Database.Connection.DataSource.Substring(0, Context.Database.Connection.DataSource.IndexOf('\\'));
             //https://msdn.microsoft.com/en-us/library/7hzczzed.aspx
@@ -62,8 +62,8 @@ namespace nsAspur
         {
 
             //Context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Svetla]");
-            foreach (report2s rep in Context.reports.ToList())
-                Context.reports.Remove(rep);
+            foreach (record rep in Context.records.ToList())
+                Context.records.Remove(rep);
             return UlozDB();
 
         }
@@ -77,9 +77,9 @@ namespace nsAspur
             }
         }
        
-        public static void ulozDoDB(report2s pReport)
+        public static void ulozDoDB(record pReport)
         {
-            Context.reports.Add(pReport);
+            Context.records.Add(pReport);
         }
 
 

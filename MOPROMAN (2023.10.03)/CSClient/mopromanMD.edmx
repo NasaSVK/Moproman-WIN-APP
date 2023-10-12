@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="mopromanDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="record">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pec_id" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="napatie" Type="real" />
+          <Property Name="prud" Type="real" />
+          <Property Name="sobert_vstup" Type="real" />
+          <Property Name="t_voda_vstup" Type="real" />
+          <Property Name="t_voda_vystup" Type="real" />
+          <Property Name="vykon" Type="real" />
+          <Property Name="rz_pribenie" Type="real" />
+          <Property Name="date_time" Type="datetime" Nullable="false" />
+          <Property Name="sobert_vykon" Type="real" />
+          <Property Name="tlak" Type="real" />
+        </EntityType>
+        <EntityContainer Name="mopromanDBModelStoreContainer">
+          <EntitySet Name="record" EntityType="Self.record" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mopromanDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="mopromanDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="records" EntityType="mopromanDBModel.record" />
+        </EntityContainer>
+        <EntityType Name="record">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pec_id" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="napatie" Type="Single" />
+          <Property Name="prud" Type="Single" />
+          <Property Name="sobert_vstup" Type="Single" />
+          <Property Name="t_voda_vstup" Type="Single" />
+          <Property Name="t_voda_vystup" Type="Single" />
+          <Property Name="vykon" Type="Single" />
+          <Property Name="rz_pribenie" Type="Single" />
+          <Property Name="date_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="sobert_vykon" Type="Single" />
+          <Property Name="tlak" Type="Single" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mopromanDBModelStoreContainer" CdmEntityContainer="mopromanDBEntities">
+          <EntitySetMapping Name="records">
+            <EntityTypeMapping TypeName="mopromanDBModel.record">
+              <MappingFragment StoreEntitySet="record">
+                <ScalarProperty Name="tlak" ColumnName="tlak" />
+                <ScalarProperty Name="sobert_vykon" ColumnName="sobert_vykon" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="rz_pribenie" ColumnName="rz_pribenie" />
+                <ScalarProperty Name="vykon" ColumnName="vykon" />
+                <ScalarProperty Name="t_voda_vystup" ColumnName="t_voda_vystup" />
+                <ScalarProperty Name="t_voda_vstup" ColumnName="t_voda_vstup" />
+                <ScalarProperty Name="sobert_vstup" ColumnName="sobert_vstup" />
+                <ScalarProperty Name="prud" ColumnName="prud" />
+                <ScalarProperty Name="napatie" ColumnName="napatie" />
+                <ScalarProperty Name="pec_id" ColumnName="pec_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

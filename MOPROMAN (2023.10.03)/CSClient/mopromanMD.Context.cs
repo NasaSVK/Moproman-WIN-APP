@@ -13,10 +13,10 @@ namespace nsAspur
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class cs_whirlpool2_db : DbContext
+    public partial class mopromanDBEntities : DbContext
     {
-        public cs_whirlpool2_db()
-            : base("name=cs_whirlpool2_db")
+        public mopromanDBEntities()
+            : base("name=mopromanDBEntities")
         {
         }
     
@@ -25,6 +25,6 @@ namespace nsAspur
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<report2s> reports { get; set; }
+        public virtual DbSet<record> records { get; set; }
     }
 }

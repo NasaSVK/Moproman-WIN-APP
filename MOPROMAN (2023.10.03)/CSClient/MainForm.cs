@@ -142,13 +142,14 @@ public partial class MainForm : Form
         {
 
         int SizeRead = 0;
-        int Result = 0;
+        int Result, ResultMK,ResultDB = 0;
         lbBytesRead.Text = "";
 
 
             //#################################################################################################################
-            //Result = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
-            Result = Client.ReadArea(S7Consts.S7AreaMK, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
+            //ResultDB = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
+            //ResultMK = Client.ReadArea(S7Consts.S7AreaMK, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
+            Result = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
             //#################################################################################################################
 
             //ak je resut OK (0) vypise do logu OK, ak nie je OK vypisem nieco ine
@@ -190,68 +191,27 @@ public partial class MainForm : Form
         {
 
             DateTime DATE_TIME = DateTime.Now;
+            float NAPATIE = Bytes.NAPATIE.getVaue(Buffer);
+            float PRUD = Bytes.PRUD.getVaue(Buffer);
+            float SOBERT_VSTUP = Bytes.SOBERT_VSTUP.getVaue(Buffer);
+            float SOBERT_VYKON = Bytes.SOBERT_VYKON.getVaue(Buffer);           
+            float TLAK_VODY = Bytes.TLAK_VODY.getVaue(Buffer);
+            float TEPLOTA_VODY_VSTUP = Bytes.TEPLOTA_VODY_VSTUP.getVaue(Buffer);
+            float TEPLOTA_VODY_VYSTUP = Bytes.TEPLOTA_VODY_VYSTUP.getVaue(Buffer);
+            float VYKON = Bytes.VYKON.getVaue(Buffer);
+            float PRISPOSOBENIE = Bytes.PRISPOSOBENIE.getVaue(Buffer);
 
-            byte vIn = 70;
-            char vOut = Convert.ToChar(vIn);
-
-            char SHIFT = (char)Buffer[Bytes.SHIFT];
-                        
-            float CYCLE_TIME = S7.GetRealAt(Helpers.ParsujBytes(Buffer, Bytes.CYCLE_TIME, 4),0);
-            //float CYCLE_TIME = Helpers.BytesToFloat(Helpers.ParsujBytes(Buffer, Bytes.CYCLE_TIME, 4));
-
-            char UR1_B = (char)Buffer[Bytes.R1_B];
-            char UR1_F = (char)Buffer[Bytes.R1_F];
-            char UR1_S = (char)Buffer[Bytes.R1_S];
-
-            char UR2_B = (char)Buffer[Bytes.R2_B];
-            char UR2_F = (char)Buffer[Bytes.R2_F];
-            char UR2_S = (char)Buffer[Bytes.R2_S];
-            
-            
-            float OK_ = S7.GetRealAt(Helpers.ParsujBytes(Buffer, Bytes.OK_, 4),0);
-            float NOK_ = S7.GetRealAt(Helpers.ParsujBytes(Buffer, Bytes.NOK_, 4), 0);
-        
-
-            int CNT_OK = S7.GetIntAt(Helpers.ParsujBytes(Buffer, Bytes.CNT_OK, 2),0);
-            int CNT_NOK = S7.GetIntAt(Helpers.ParsujBytes(Buffer, Bytes.CNT_NOK, 2),0);
-   
-            float R1_ = S7.GetRealAt(Helpers.ParsujBytes(Buffer, Bytes.R1_, 4),0);
-            float R2_ = S7.GetRealAt(Helpers.ParsujBytes(Buffer, Bytes.R2_, 4),0);
-  
-
-            int UR1 = S7.GetIntAt(Helpers.ParsujBytes(Buffer, Bytes.CNT_OKR1, 2), 0);       
-            int UR2 = S7.GetIntAt(Helpers.ParsujBytes(Buffer, Bytes.CNT_OKR2, 2), 0);
-
-            char ERROR = (char)Buffer[Bytes.ERROR];
-
-            float ERROR_TIME = S7.GetRealAt(Helpers.ParsujBytes(Buffer, Bytes.ERROR_TIME, 4),0);
-            float WAITING_TIME = S7.GetRealAt(Helpers.ParsujBytes(Buffer, Bytes.WAITING_TIME, 4),0);
-
-            //string TestString1 = S7.GetStringAt(Helpers.ParsujBytes(Buffer, Bytes.TESTString1, 10), 0);
-            //string TestString2 = S7.GetStringAt(Helpers.ParsujBytes(Buffer, Bytes.TESTString2, 10), 0);
-
-
-            DB.ulozDoDB(new report2s() {
-                DATE_TIME = DATE_TIME,
-                SHIFT = SHIFT.ToString(),
-                CYCLE_TIME = CYCLE_TIME,
-                R1_B = UR1_B.ToString(),
-                R1_S = UR1_S.ToString(),
-                R1_F = UR1_F.ToString(),                                
-                R2_B = UR2_B.ToString(),
-                R2_S = UR2_S.ToString(),
-                R2_F = UR2_F.ToString(),
-                OK_ = OK_,
-                NOK_ = NOK_,
-                CNT_OK = CNT_OK,
-                CNT_NOK = CNT_NOK,
-                UR1 = UR1,
-                UR2 = UR2,
-                R1_ = R1_,
-                R2_ = R2_,
-                ERROR = ERROR.ToString(),
-                ERROR_TIME = ERROR_TIME,
-                WAITING_TIME = WAITING_TIME
+            DB.ulozDoDB(new record() { 
+                date_time = DATE_TIME,
+                napatie = NAPATIE,
+                prud = PRUD,
+                sobert_vstup = SOBERT_VSTUP,
+                sobert_vykon = SOBERT_VYKON,
+                t_voda_vstup = TEPLOTA_VODY_VSTUP,
+                t_voda_vystup = TEPLOTA_VODY_VYSTUP,
+                tlak = TLAK_VODY,
+                rz_pribenie = PRISPOSOBENIE,
+                vykon = VYKON
             });
             /*
 
@@ -298,8 +258,8 @@ public partial class MainForm : Form
 
         void aktualizujDtg() {
             
-            int id_last = DB.Context.reports.Max(rec=>rec.ID);
-            List<report2s> pom = DB.Context.reports.Where(r => r.ID > id_last - POCET_ZAZNAMOV).ToList();
+            int id_last = DB.Context.records.Max(rec=>rec.id);
+            List<record> pom = DB.Context.records.Where(r => r.id > id_last - POCET_ZAZNAMOV).ToList();
             pom.Reverse();
             dgvRecords.DataSource = pom; //DB.Context.reports.Where(r=>r.ID > id_last- 10).ToList().Reverse();
         }
