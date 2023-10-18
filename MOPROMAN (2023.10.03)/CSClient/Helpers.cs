@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Windows.Forms;
 
@@ -13,6 +14,18 @@ namespace nsAspur
     {
         static Random random = new Random();
 
+
+        public static string dajZmenu(DateTime pDatumCas) {
+            
+            int hodina = pDatumCas.Hour;
+            
+            if ((hodina >= 6) && (hodina < 14)) return "ZMENA-1";
+            else
+                if ((hodina >= 14) && (hodina < 22)) return "ZMENA-2";
+            else
+                return ("ZMENA-3");
+        }
+        
         static public int dajCislo() {
             
             return random.Next(100000000, 999999999);

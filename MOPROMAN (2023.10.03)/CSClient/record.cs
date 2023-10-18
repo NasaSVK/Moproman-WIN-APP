@@ -26,5 +26,6 @@ namespace nsAspur
         public System.DateTime date_time { get; set; }
         public Nullable<float> sobert_vykon { get; set; }
         public Nullable<float> tlak { get; set; }
+        public string zmena { get; set; }
     }
 }

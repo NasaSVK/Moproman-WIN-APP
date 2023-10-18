@@ -196,7 +196,8 @@ public partial class MainForm : Form
                 t_voda_vystup = TEPLOTA_VODY_VYSTUP,
                 tlak = TLAK_VODY,
                 rz_pribenie = PRISPOSOBENIE,
-                vykon = VYKON
+                vykon = VYKON,
+                zmena = Helpers.dajZmenu(DATE_TIME)
             }); 
             
 

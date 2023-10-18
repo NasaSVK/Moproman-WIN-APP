@@ -21,6 +21,7 @@
           <Property Name="date_time" Type="datetime" Nullable="false" />
           <Property Name="sobert_vykon" Type="real" />
           <Property Name="tlak" Type="real" />
+          <Property Name="zmena" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityContainer Name="mopromanDBModelStoreContainer">
           <EntitySet Name="record" EntityType="Self.record" Schema="dbo" store:Type="Tables" />
@@ -48,6 +49,7 @@
           <Property Name="date_time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="sobert_vykon" Type="Single" />
           <Property Name="tlak" Type="Single" />
+          <Property Name="zmena" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -58,6 +60,7 @@
           <EntitySetMapping Name="records">
             <EntityTypeMapping TypeName="mopromanDBModel.record">
               <MappingFragment StoreEntitySet="record">
+                <ScalarProperty Name="zmena" ColumnName="zmena" />
                 <ScalarProperty Name="tlak" ColumnName="tlak" />
                 <ScalarProperty Name="sobert_vykon" ColumnName="sobert_vykon" />
                 <ScalarProperty Name="date_time" ColumnName="date_time" />
