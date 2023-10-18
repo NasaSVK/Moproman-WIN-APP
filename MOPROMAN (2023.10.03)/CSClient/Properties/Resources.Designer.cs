@@ -63,9 +63,9 @@ namespace nsAspur.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ASPUR85 {
+        internal static System.Drawing.Bitmap FLAME {
             get {
-                object obj = ResourceManager.GetObject("ASPUR85", resourceCulture);
+                object obj = ResourceManager.GetObject("FLAME", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

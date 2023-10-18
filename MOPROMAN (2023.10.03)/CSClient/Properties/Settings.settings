@@ -23,9 +23,6 @@
     <Setting Name="TimeOut" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10000</Value>
     </Setting>
-    <Setting Name="DBNumber" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
     <Setting Name="IP_PLC" Type="System.String" Scope="User">
       <Value Profile="(Default)">192.168.45.12</Value>
     </Setting>

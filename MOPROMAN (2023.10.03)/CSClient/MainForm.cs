@@ -42,23 +42,21 @@ public partial class MainForm : Form
         //public char SPR_VALUE { get { return (char)SPR[0]; } set { SPR[0] = (byte)value; } }
 
         //public string CUR_VALUE_BUF { get { return System.Text.Encoding.UTF8.GetString(Buffer); } }
-        public string CUR_VALUE_BUF { get { return BitConverter.ToString(Buffer); } }
-        public string CUR_VALUE { get { return Helpers.OdrezAParsuj(System.Text.Encoding.UTF8.GetString(Buffer)); } }
+        public string CUR_VALUE_BUF_DB { get { return BitConverter.ToString(BufferDB); } }
+        public string CUR_VALUE_BUF_MK { get { return Helpers.OdrezAParsuj(System.Text.Encoding.UTF8.GetString(BufferMK)); } }
 
         private byte[] TRG = new byte[1] { 0 }; //(byte)'0'
 
-        private byte SIG_BYTE { get { return Buffer[Bytes.SIG]; } set { Buffer[Bytes.SIG] = value; } }
-
-        private static readonly int BYTE_LENGTH = 168;
-        private readonly int POCET_ZAZNAMOV = 8; //pocet vypisovanych zaznamov do GUI
+        private readonly int POCET_ZAZNAMOV = 12; //pocet vypisovanych zaznamov do GUI
     
-        private byte[] Buffer = new byte[BYTE_LENGTH];
-        int Amount = BYTE_LENGTH;
-       
+        private byte[] BufferDB = new byte[MaxBuffer.DB];
+        int AmountDB = MaxBuffer.DB;
 
+        private byte[] BufferMK = new byte[MaxBuffer.MK];
+        int AmountMK = MaxBuffer.MK;
 
-
-    string IP_PLC;
+        string IP_PLC;
+        string PEC_ID = "PEC_B";
 
     int Rack = 0;
     int Slot = 2;
@@ -85,9 +83,9 @@ public partial class MainForm : Form
 
             InitializeComponent();
 
-            //DB.TestujDB();
+            DB.TestujDB();
 
-            //InitializeDataGridView();
+            InitializeDataGridView();
 
             this.CreateHandle();
             this.lbxLogs.DrawMode = DrawMode.OwnerDrawFixed;
@@ -129,45 +127,30 @@ public partial class MainForm : Form
             aktualizujDtg();
         }
 
-
-        private bool citajSignal() {
-
-            byte[] sig_byte = new byte[0];
-            int  size_read = 0;
-            int Result = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, 1, S7Consts.S7WLByte, sig_byte, ref size_read);            
-            return true;
-        }
-
         private void ReadArea()
         {
+            int ResultMK,ResultDB = 0;
+            lbBytesRead.Text = "";
 
-        int SizeRead = 0;
-        int Result, ResultMK,ResultDB = 0;
-        lbBytesRead.Text = "";
-
+            int SizeReadDB = 0;
+            int SizeReadMK = 0;
 
             //#################################################################################################################
-            //ResultDB = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
-            //ResultMK = Client.ReadArea(S7Consts.S7AreaMK, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
-            Result = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
+            ResultDB = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.AmountDB, S7Consts.S7WLByte, BufferDB, ref SizeReadDB);            
+            ResultMK = Client.ReadArea(S7Consts.S7AreaMK, 000, 0, this.AmountMK, S7Consts.S7WLByte, BufferMK, ref SizeReadMK);
+            //Result = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
             //#################################################################################################################
 
             //ak je resut OK (0) vypise do logu OK, ak nie je OK vypisem nieco ine
-            this.ShowResultInfo(Result);
+            this.ShowResultInfo(ResultDB + ResultMK);            
 
-        if (Result == 0) {
+            if (ResultDB == 0  && ResultMK == 0 ) {
                 ErrorRead = 0;
-                lbPrecHodnotaRaw.Text = this.CUR_VALUE_BUF.Trim(); //this.CUR_VALUE_BUF; //vypisem celkovy buffer
-                //lbPrecHodnotaText.Text = this.CUR_VALUE.Trim(); // vypisem orezany buffer                       
-                lbBytesRead.Text = SizeRead.ToString();  //kolko bytov bolo precitanych              
-
-                if (Buffer[Bytes.SIG] == 1) {
+                lbPrecHodnotaRaw.Text = "DB:" + this.CUR_VALUE_BUF_DB.Trim() + " /  " + "MK:" + this.CUR_VALUE_BUF_MK.Trim(); //vypisem orezany buffer                     
+                lbBytesRead.Text = "DB:" + SizeReadDB.ToString()+ " / " + "MK:" + SizeReadMK.ToString();  //kolko bytov bolo precitanych              
                     SPRACOVAVAM = true;
-                    SpracujZaznamDB();
-                    zapisSignal();
-                    SPRACOVAVAM = false;
-                }
-                
+                    SpracujZaznamDB();             
+                    SPRACOVAVAM = false;                        
             }
         else
         {
@@ -191,17 +174,19 @@ public partial class MainForm : Form
         {
 
             DateTime DATE_TIME = DateTime.Now;
-            float NAPATIE = Bytes.NAPATIE.getVaue(Buffer);
-            float PRUD = Bytes.PRUD.getVaue(Buffer);
-            float SOBERT_VSTUP = Bytes.SOBERT_VSTUP.getVaue(Buffer);
-            float SOBERT_VYKON = Bytes.SOBERT_VYKON.getVaue(Buffer);           
-            float TLAK_VODY = Bytes.TLAK_VODY.getVaue(Buffer);
-            float TEPLOTA_VODY_VSTUP = Bytes.TEPLOTA_VODY_VSTUP.getVaue(Buffer);
-            float TEPLOTA_VODY_VYSTUP = Bytes.TEPLOTA_VODY_VYSTUP.getVaue(Buffer);
-            float VYKON = Bytes.VYKON.getVaue(Buffer);
-            float PRISPOSOBENIE = Bytes.PRISPOSOBENIE.getVaue(Buffer);
+            float NAPATIE = Bytes.NAPATIE.getVaue(BufferMK);
+            float PRUD = Bytes.PRUD.getVaue(BufferMK);
+            float SOBERT_VSTUP = Bytes.SOBERT_VSTUP.getVaue(BufferMK);
+            float SOBERT_VYKON = Bytes.SOBERT_VYKON.getVaue(BufferMK);                       
+            float VYKON = Bytes.VYKON.getVaue(BufferMK);
+            float PRISPOSOBENIE = Bytes.PRISPOSOBENIE.getVaue(BufferMK);
+            
+            float TLAK_VODY = Bytes.TLAK_VODY.getVaue(BufferDB);
+            float TEPLOTA_VODY_VSTUP = Bytes.TEPLOTA_VODY_VSTUP.getVaue(BufferDB);
+            float TEPLOTA_VODY_VYSTUP = Bytes.TEPLOTA_VODY_VYSTUP.getVaue(BufferDB);
 
-            DB.ulozDoDB(new record() { 
+            DB.ulozDoDB(new record() {
+                pec_id = this.PEC_ID,
                 date_time = DATE_TIME,
                 napatie = NAPATIE,
                 prud = PRUD,
@@ -212,8 +197,8 @@ public partial class MainForm : Form
                 tlak = TLAK_VODY,
                 rz_pribenie = PRISPOSOBENIE,
                 vykon = VYKON
-            });
-            /*
+            }); 
+            
 
             if (DB.UlozDB())
             {
@@ -225,43 +210,17 @@ public partial class MainForm : Form
                 this.Loguj("### ### ###", MessageBoxIcon.Error);
                 this.Loguj("Zaznam sa nepodarilo ulozit do DB!", MessageBoxIcon.Error);
                 this.Loguj("### ### ###", MessageBoxIcon.Error);
-            }*/            
-        }
-        /// <summary>
-        /// zapise 0 do signalizacneho bytu na PLC
-        /// </summary>        
-        private void zapisSignal()
-        {
-
-
-            //int Result = Client.WriteArea(S7Consts.S7AreaDB, DB_Number, Bytes.SIG, 2, 1, new byte[] { 1 });
-            Writer.Add(S7Consts.S7AreaDB, S7Consts.S7WLByte, DB_Number, Bytes.SIG, 1, ref TRG);
-            int Result = Writer.Write();
-
-            //ak je resut OK (0) vypise do logu OK, ak nie je OK vypisem nieco ine
-            this.ShowResultInfo(Result);
-
-            if (Result == 0)
-            {
-                ErrorRead = 0;
-                //lbBytesRead.Text = SizeRead.ToString();  //kolko bytov bolo precitanych              
-
-                this.Loguj("NULA ZAPISANA DO SIGNALBYTU", MessageBoxIcon.Information);
-                Buffer[Bytes.SIG] = 1;
-            }
-            else
-            {
-                this.ErrorRead++;
-                this.Loguj("Chyba pri zapise hodnoty (SIGPBYTE) z PLC", MessageBoxIcon.Error);                
-            }
+            }            
         }
 
         void aktualizujDtg() {
             
+            if (DB.Context.records.Count() > 0) { 
             int id_last = DB.Context.records.Max(rec=>rec.id);
             List<record> pom = DB.Context.records.Where(r => r.id > id_last - POCET_ZAZNAMOV).ToList();
             pom.Reverse();
             dgvRecords.DataSource = pom; //DB.Context.reports.Where(r=>r.ID > id_last- 10).ToList().Reverse();
+           }
         }
 
         private void PripojKPLC(Object myObject, EventArgs myEventArgs)
@@ -284,7 +243,7 @@ public partial class MainForm : Form
             //##########################################
             //##########################################
             this.ReadArea();
-            //tmrRead.Enabled = true;
+            tmrRead.Enabled = true;
             //##########################################
             //##########################################
             //btnPripojPlc.Enabled = false;
@@ -293,7 +252,7 @@ public partial class MainForm : Form
         {          
             if (tmrRead.Enabled == true) tmrRead.Enabled = false;
             //v pripade chyby spustim druhy casovac nastaveny na periodu 5s a tri krat v intervale jednej sekundy sa pokusim pripojit
-            //if (tmrErr.Enabled == false) tmrErr.Enabled = true;
+            if (tmrErr.Enabled == false) tmrErr.Enabled = true;
 
             this.Loguj("Nepodarilo sa pripojiť k PLC!", MessageBoxIcon.Error);
         }
@@ -302,8 +261,7 @@ public partial class MainForm : Form
     void nacitajConfig()
     {
         this.Rack = 0;
-        this.Slot = 0;
-        DB_Number = Properties.Settings.Default.DBNumber;                    
+        this.Slot = 0;                           
         this.IP_PLC = Properties.Settings.Default.IP_PLC;
         this.tmrRead.Interval = Properties.Settings.Default.Refresh;
         this.ErrInterval = Properties.Settings.Default.ErrInt;
@@ -374,7 +332,7 @@ public partial class MainForm : Form
             //this.CreateHandle();
         }
         this.Invoke(new Action(()=>lbxLogs.Items.Insert(0, pText)));
-        //lbxLogs.Items.Insert(0, pText);
+
         if (lbxLogs.Items.Count >= 999999) {
             this.ItemsColor.Clear();
             this.lbxLogs.Items.Clear();
@@ -405,7 +363,7 @@ public partial class MainForm : Form
     //klikacie citanie
     private void btnCitaj_Click(object sender, EventArgs e)
     {
-            this.ReadArea();
+            //this.ReadArea();
             SpracujZaznamDB();
     }
 
@@ -415,21 +373,23 @@ public partial class MainForm : Form
         // These are tests done on my DB
 
         DateTime DT = DateTime.Now;
-        S7.SetSIntAt(Buffer, 40, -125);
-        S7.SetIntAt(Buffer, 42, 32501);
-        S7.SetDIntAt(Buffer, 44, -332501);
-        S7.SetLIntAt(Buffer, 48, -99832501);
-        S7.SetRealAt(Buffer, 56, (float)98.778);
-        S7.SetLRealAt(Buffer, 60, 123000000000.778);
-        S7.SetUSIntAt(Buffer, 24, 125);
-        S7.SetUIntAt(Buffer, 26, 32501);
-        S7.SetUDIntAt(Buffer, 28, 332501);
-        S7.SetULintAt(Buffer, 32, 99832501);
-        S7.SetDateAt(Buffer, 80, DT);
-        S7.SetTODAt(Buffer, 82, DT);
-        S7.SetDTLAt(Buffer, 112, DT);
-        S7.SetLTODAt(Buffer, 86, DT);
-        S7.SetLDTAt(Buffer, 94, DT);
+        S7.SetSIntAt(BufferMK, 40, -125);
+        S7.SetIntAt(BufferMK, 42, 32501);
+        S7.SetDIntAt(BufferMK, 44, -332501);
+        S7.SetLIntAt(BufferMK, 48, -99832501);
+        S7.SetRealAt(BufferMK, 56, (float)98.778);
+        S7.SetLRealAt(BufferMK, 60, 123000000000.778);
+        S7.SetUSIntAt(BufferMK, 24, 125);
+        S7.SetUIntAt(BufferMK, 26, 32501);
+        S7.SetUDIntAt(BufferMK, 28, 332501);
+        S7.SetULintAt(BufferMK, 32, 99832501);
+
+
+        S7.SetDateAt(BufferMK, 80, DT);
+        S7.SetTODAt(BufferMK, 82, DT);
+        S7.SetDTLAt(BufferMK, 112, DT);
+        S7.SetLTODAt(BufferMK, 86, DT);
+        S7.SetLDTAt(BufferMK, 94, DT);
         //PlcDBWrite();
     }
 

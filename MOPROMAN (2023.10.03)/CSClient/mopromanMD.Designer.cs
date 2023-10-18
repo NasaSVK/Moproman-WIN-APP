@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\nasa.slovakia1.BOOSTER\Desktop\MOPROMAN (Booster, Belusa)\MOPROMAN (2023.10.03)\CSClient\mopromanMD.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\nasa.slovakia1.BOOSTER\Desktop\MOPROMAN (Booster, Belusa) 2\MOPROMAN (2023.10.03)\CSClient\mopromanMD.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -16,6 +16,10 @@ DB:
 Name: MoProManDB
 Type: MSSQL
 Password: B******2****
+Server Name: POV-SVR-025\WINCC
+
+CONNECTION STRING: 
+Data Source=POV-SVR-025\WINCC;Initial Catalog=mopromanDB;Integrated Security=True
 
 SERVER:
 IP:192.168.45.1
@@ -37,3 +41,5 @@ SIMATIC S7-120
 
 
 podstatný stlpec C v tabulke
+
+

@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TextError = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -38,10 +38,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbChC = new System.Windows.Forms.Label();
             this.lbErrors = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label25 = new System.Windows.Forms.Label();
             this.lbBytesRead = new System.Windows.Forms.Label();
-            this.btnInfo = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbPrecHodnotaRaw = new System.Windows.Forms.Label();
             this.dgvRecords = new System.Windows.Forms.DataGridView();
@@ -53,11 +51,13 @@
             this.lbPrecHodnotaText = new System.Windows.Forms.Label();
             this.c = new System.Windows.Forms.Label();
             this.tmrErr = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnInfo = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecords)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // TextError
@@ -70,7 +70,7 @@
             this.TextError.Margin = new System.Windows.Forms.Padding(4);
             this.TextError.Name = "TextError";
             this.TextError.ReadOnly = true;
-            this.TextError.Size = new System.Drawing.Size(880, 23);
+            this.TextError.Size = new System.Drawing.Size(1280, 23);
             this.TextError.TabIndex = 21;
             // 
             // button1
@@ -106,7 +106,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 1054);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(880, 76);
+            this.panel2.Size = new System.Drawing.Size(1280, 76);
             this.panel2.TabIndex = 61;
             // 
             // lbChC
@@ -115,7 +115,7 @@
             this.lbChC.Location = new System.Drawing.Point(111, 25);
             this.lbChC.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbChC.Name = "lbChC";
-            this.lbChC.Size = new System.Drawing.Size(104, 17);
+            this.lbChC.Size = new System.Drawing.Size(90, 15);
             this.lbChC.TabIndex = 82;
             this.lbChC.Text = "Reading Errors";
             this.lbChC.Visible = false;
@@ -126,23 +126,11 @@
             this.lbErrors.Location = new System.Drawing.Point(144, 48);
             this.lbErrors.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbErrors.Name = "lbErrors";
-            this.lbErrors.Size = new System.Drawing.Size(16, 17);
+            this.lbErrors.Size = new System.Drawing.Size(14, 15);
             this.lbErrors.TabIndex = 81;
             this.lbErrors.Text = "0";
             this.lbErrors.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lbErrors.Visible = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackgroundImage = global::nsAspur.Properties.Resources.logo1;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(447, 11);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(352, 57);
-            this.pictureBox2.TabIndex = 80;
-            this.pictureBox2.TabStop = false;
             // 
             // label25
             // 
@@ -150,7 +138,7 @@
             this.label25.Location = new System.Drawing.Point(13, 25);
             this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(81, 17);
+            this.label25.Size = new System.Drawing.Size(69, 15);
             this.label25.TabIndex = 79;
             this.label25.Text = "Bytes Read";
             // 
@@ -160,24 +148,10 @@
             this.lbBytesRead.Location = new System.Drawing.Point(40, 47);
             this.lbBytesRead.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbBytesRead.Name = "lbBytesRead";
-            this.lbBytesRead.Size = new System.Drawing.Size(16, 17);
+            this.lbBytesRead.Size = new System.Drawing.Size(14, 15);
             this.lbBytesRead.TabIndex = 78;
             this.lbBytesRead.Text = "0";
             this.lbBytesRead.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btnInfo
-            // 
-            this.btnInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnInfo.BackgroundImage = global::nsAspur.Properties.Resources.ASPUR85;
-            this.btnInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInfo.Location = new System.Drawing.Point(807, 5);
-            this.btnInfo.Margin = new System.Windows.Forms.Padding(4);
-            this.btnInfo.Name = "btnInfo";
-            this.btnInfo.Size = new System.Drawing.Size(67, 67);
-            this.btnInfo.TabIndex = 77;
-            this.btnInfo.UseVisualStyleBackColor = false;
-            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
             // 
             // panel1
             // 
@@ -195,7 +169,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(880, 1054);
+            this.panel1.Size = new System.Drawing.Size(1280, 1054);
             this.panel1.TabIndex = 62;
             // 
             // lbPrecHodnotaRaw
@@ -204,7 +178,7 @@
             this.lbPrecHodnotaRaw.AutoSize = true;
             this.lbPrecHodnotaRaw.Location = new System.Drawing.Point(173, 942);
             this.lbPrecHodnotaRaw.Name = "lbPrecHodnotaRaw";
-            this.lbPrecHodnotaRaw.Size = new System.Drawing.Size(134, 17);
+            this.lbPrecHodnotaRaw.Size = new System.Drawing.Size(118, 15);
             this.lbPrecHodnotaRaw.TabIndex = 22;
             this.lbPrecHodnotaRaw.Text = "0x00000000000000";
             // 
@@ -217,18 +191,18 @@
             this.dgvRecords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRecords.Location = new System.Drawing.Point(12, 12);
             this.dgvRecords.Name = "dgvRecords";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRecords.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRecords.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvRecords.RowHeadersVisible = false;
             this.dgvRecords.RowHeadersWidth = 51;
             this.dgvRecords.RowTemplate.Height = 24;
-            this.dgvRecords.Size = new System.Drawing.Size(856, 385);
+            this.dgvRecords.Size = new System.Drawing.Size(1256, 385);
             this.dgvRecords.TabIndex = 0;
             // 
             // btnStop
@@ -253,7 +227,7 @@
             this.groupBox1.Location = new System.Drawing.Point(6, 400);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(868, 539);
+            this.groupBox1.Size = new System.Drawing.Size(1268, 539);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Logs";
@@ -266,7 +240,7 @@
             this.lbxLogs.Location = new System.Drawing.Point(3, 22);
             this.lbxLogs.Margin = new System.Windows.Forms.Padding(20);
             this.lbxLogs.Name = "lbxLogs";
-            this.lbxLogs.Size = new System.Drawing.Size(862, 514);
+            this.lbxLogs.Size = new System.Drawing.Size(1262, 514);
             this.lbxLogs.TabIndex = 0;
             this.lbxLogs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbxLogs_DrawItem);
             // 
@@ -287,7 +261,7 @@
             this.lbPrecHodnota.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbPrecHodnota.Location = new System.Drawing.Point(156, 786);
             this.lbPrecHodnota.Name = "lbPrecHodnota";
-            this.lbPrecHodnota.Size = new System.Drawing.Size(96, 17);
+            this.lbPrecHodnota.Size = new System.Drawing.Size(86, 16);
             this.lbPrecHodnota.TabIndex = 15;
             this.lbPrecHodnota.Text = "0x00000000";
             this.lbPrecHodnota.Visible = false;
@@ -297,7 +271,7 @@
             this.lbPrecHodnotaText.AutoSize = true;
             this.lbPrecHodnotaText.Location = new System.Drawing.Point(22, 786);
             this.lbPrecHodnotaText.Name = "lbPrecHodnotaText";
-            this.lbPrecHodnotaText.Size = new System.Drawing.Size(128, 17);
+            this.lbPrecHodnotaText.Size = new System.Drawing.Size(110, 15);
             this.lbPrecHodnotaText.TabIndex = 13;
             this.lbPrecHodnotaText.Text = "Precitana hodnota:";
             this.lbPrecHodnotaText.Visible = false;
@@ -308,7 +282,7 @@
             this.c.AutoSize = true;
             this.c.Location = new System.Drawing.Point(12, 942);
             this.c.Name = "c";
-            this.c.Size = new System.Drawing.Size(168, 17);
+            this.c.Size = new System.Drawing.Size(144, 15);
             this.c.TabIndex = 12;
             this.c.Text = "Precitana hodnota (PLC):";
             // 
@@ -316,11 +290,37 @@
             // 
             this.tmrErr.Interval = 1000;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.BackgroundImage = global::nsAspur.Properties.Resources.logo1;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Location = new System.Drawing.Point(847, 11);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(352, 57);
+            this.pictureBox2.TabIndex = 80;
+            this.pictureBox2.TabStop = false;
+            // 
+            // btnInfo
+            // 
+            this.btnInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnInfo.BackgroundImage = global::nsAspur.Properties.Resources.FLAME;
+            this.btnInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnInfo.Location = new System.Drawing.Point(1207, 5);
+            this.btnInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.btnInfo.Name = "btnInfo";
+            this.btnInfo.Size = new System.Drawing.Size(67, 67);
+            this.btnInfo.TabIndex = 77;
+            this.btnInfo.UseVisualStyleBackColor = false;
+            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 1153);
+            this.ClientSize = new System.Drawing.Size(1280, 1153);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button1);
@@ -328,16 +328,16 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
-            this.Text = "ASPUR2 (DUSAN NECEK ©2022)";
+            this.Text = "MOPROMAN (DUSAN NECEK ©2023)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecords)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

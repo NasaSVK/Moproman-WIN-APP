@@ -109,9 +109,9 @@
             this.label1.Location = new System.Drawing.Point(27, 108);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 31);
+            this.label1.Size = new System.Drawing.Size(184, 31);
             this.label1.TabIndex = 1;
-            this.label1.Text = "ASPUR 2";
+            this.label1.Text = "MOPROMAN";
             // 
             // label2
             // 
@@ -131,9 +131,9 @@
             this.label5.Location = new System.Drawing.Point(91, 275);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(127, 17);
+            this.label5.Size = new System.Drawing.Size(139, 17);
             this.label5.TabIndex = 9;
-            this.label5.Text = "September 2022";
+            this.label5.Text = "MOPROMAN 2023";
             // 
             // label6
             // 
@@ -159,7 +159,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::nsAspur.Properties.Resources.ASPUR85;
+            this.pictureBox1.Image = global::nsAspur.Properties.Resources.FLAME;
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(343, 186);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
@@ -174,18 +174,18 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(30, 149);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(395, 17);
+            this.label8.Size = new System.Drawing.Size(265, 16);
             this.label8.TabIndex = 13;
-            this.label8.Text = "Automatické skrutkovanie pomocou robotov Universal Robots";
+            this.label8.Text = "Modernizácia riadenia výrobných procesov";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(30, 166);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(67, 17);
+            this.label9.Size = new System.Drawing.Size(63, 16);
             this.label9.TabIndex = 14;
-            this.label9.Text = "Volume 2";
+            this.label9.Text = "Volume 1";
             // 
             // InfoForm
             // 

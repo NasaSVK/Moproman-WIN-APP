@@ -57,7 +57,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>ASPUR85.ico</ApplicationIcon>
+    <ApplicationIcon>FLAME.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -177,6 +177,7 @@
   <ItemGroup>
     <Content Include="ASPUR85.ico" />
     <Content Include="ASPUR85.png" />
+    <Content Include="FLAME.ico" />
     <Content Include="mopromanMD.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>mopromanMD.edmx</DependentUpon>
@@ -187,7 +188,7 @@
       <DependentUpon>mopromanMD.edmx</DependentUpon>
       <LastGenOutput>mopromanMD.cs</LastGenOutput>
     </Content>
-    <None Include="Resources\ASPUR85.png" />
+    <None Include="Resources\FLAME.png" />
     <None Include="Resources\tuba_ICO.png" />
     <None Include="Resources\tuby_120.png" />
     <None Include="Resources\img_sip_hore.png" />
