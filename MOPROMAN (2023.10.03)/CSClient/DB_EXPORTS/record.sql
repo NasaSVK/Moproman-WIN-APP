@@ -1,23 +1,3 @@
-create table record
-(
-    id            int identity
-        constraint PK_records
-            primary key,
-    pec_id        varchar(6)                    not null,
-    napatie       real,
-    prud          real,
-    sobert_vstup  real,
-    t_voda_vstup  real,
-    t_voda_vystup real,
-    vykon         real,
-    rz_pribenie   real,
-    date_time     datetime                      not null,
-    sobert_vykon  real,
-    tlak          real,
-    zmena         varchar(10) default 'ZMENA-1' not null
-)
-go
-
 INSERT INTO mopromanDB.dbo.record (id, pec_id, napatie, prud, sobert_vstup, t_voda_vstup, t_voda_vystup, vykon, rz_pribenie, date_time, sobert_vykon, tlak, zmena) VALUES (1, N'PEC_B', 9.953704, 0.11574074, 0.05787037, 25.520834, 26.0706, 500, 9.837963, N'2023-10-16 18:56:50.110', 0.05787037, 900, N'ZMENA-1');
 INSERT INTO mopromanDB.dbo.record (id, pec_id, napatie, prud, sobert_vstup, t_voda_vstup, t_voda_vystup, vykon, rz_pribenie, date_time, sobert_vykon, tlak, zmena) VALUES (2, N'PEC_B', 9.953704, 0.11574074, 0.05787037, 25.520834, 26.0706, 500, 9.837963, N'2023-10-16 18:56:52.730', 0.05787037, 900, N'ZMENA-1');
 INSERT INTO mopromanDB.dbo.record (id, pec_id, napatie, prud, sobert_vstup, t_voda_vstup, t_voda_vystup, vykon, rz_pribenie, date_time, sobert_vykon, tlak, zmena) VALUES (3, N'PEC_B', 9.895834, 0.11574074, 0.05787037, 25.578705, 26.0706, 500, 9.780093, N'2023-10-16 18:56:54.733', 0.05787037, 900, N'ZMENA-1');

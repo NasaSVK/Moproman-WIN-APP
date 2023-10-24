@@ -49,10 +49,10 @@ public partial class MainForm : Form
 
         private readonly int POCET_ZAZNAMOV = 12; //pocet vypisovanych zaznamov do GUI
     
-        private byte[] BufferDB = new byte[MaxBuffer.DB];
+        public static  byte[] BufferDB = new byte[MaxBuffer.DB];
         int AmountDB = MaxBuffer.DB;
 
-        private byte[] BufferMK = new byte[MaxBuffer.MK];
+        public static  byte[] BufferMK = new byte[MaxBuffer.MK];
         int AmountMK = MaxBuffer.MK;
 
         string IP_PLC;
@@ -136,8 +136,14 @@ public partial class MainForm : Form
             int SizeReadMK = 0;
 
             //#################################################################################################################
-            ResultDB = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.AmountDB, S7Consts.S7WLByte, BufferDB, ref SizeReadDB);            
-            ResultMK = Client.ReadArea(S7Consts.S7AreaMK, 000, 0, this.AmountMK, S7Consts.S7WLByte, BufferMK, ref SizeReadMK);
+            try
+            {
+                ResultDB = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.AmountDB, S7Consts.S7WLByte, BufferDB, ref SizeReadDB);
+                ResultMK = Client.ReadArea(S7Consts.S7AreaMK, 000, 0, this.AmountMK, S7Consts.S7WLByte, BufferMK, ref SizeReadMK);
+            } catch {
+                
+                ResultMK = -999;
+            }
             //Result = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
             //#################################################################################################################
 
@@ -174,16 +180,16 @@ public partial class MainForm : Form
         {
 
             DateTime DATE_TIME = DateTime.Now;
-            float NAPATIE = Bytes.NAPATIE.getVaue(BufferMK);
-            float PRUD = Bytes.PRUD.getVaue(BufferMK);
-            float SOBERT_VSTUP = Bytes.SOBERT_VSTUP.getVaue(BufferMK);
-            float SOBERT_VYKON = Bytes.SOBERT_VYKON.getVaue(BufferMK);                       
-            float VYKON = Bytes.VYKON.getVaue(BufferMK);
+            float NAPATIE = Bytes.NAPATIE.getVaue();
+            float PRUD = Bytes.PRUD.getVaue();
+            float SOBERT_VSTUP = Bytes.SOBERT_VSTUP.getVaue();
+            float SOBERT_VYKON = Bytes.SOBERT_VYKON.getVaue();                       
+            float VYKON = Bytes.VYKON.getVaue();
             float PRISPOSOBENIE = Bytes.PRISPOSOBENIE.getVaue(BufferMK);
             
-            float TLAK_VODY = Bytes.TLAK_VODY.getVaue(BufferDB);
-            float TEPLOTA_VODY_VSTUP = Bytes.TEPLOTA_VODY_VSTUP.getVaue(BufferDB);
-            float TEPLOTA_VODY_VYSTUP = Bytes.TEPLOTA_VODY_VYSTUP.getVaue(BufferDB);
+            float TLAK_VODY = Bytes.TLAK_VODY.getVaue();
+            float TEPLOTA_VODY_VSTUP = Bytes.TEPLOTA_VODY_VSTUP.getVaue();
+            float TEPLOTA_VODY_VYSTUP = Bytes.TEPLOTA_VODY_VYSTUP.getVaue();
 
             DB.ulozDoDB(new record() {
                 pec_id = this.PEC_ID,
@@ -240,14 +246,8 @@ public partial class MainForm : Form
             if (tmrErr.Enabled == true) tmrErr.Enabled = false;            
             TextError.ForeColor = Color.Black;
             TextError.Text = " PDU Negotiated : " + Client.PduSizeNegotiated.ToString();                
-            //lbErrors.Text = ErrorReadAll.ToString();
-            //##########################################
-            //##########################################
             this.ReadArea();
             tmrRead.Enabled = true;
-            //##########################################
-            //##########################################
-            //btnPripojPlc.Enabled = false;
         }
         else
         {          
