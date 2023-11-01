@@ -112,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>mopromanMD.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Pec.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="record.cs">

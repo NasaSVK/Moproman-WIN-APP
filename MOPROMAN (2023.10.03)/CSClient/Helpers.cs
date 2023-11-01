@@ -9,6 +9,7 @@ namespace nsAspur
 {
 
     delegate void dlgLoguj(string text, MessageBoxIcon pTyp);
+    delegate void dlgShowResultInfo(int pResultNumber);
 
     class Helpers
     {
