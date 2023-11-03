@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Addresses.cs" />
     <Compile Include="Bytes.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DB.cs" />

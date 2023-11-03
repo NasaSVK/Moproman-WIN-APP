@@ -11,6 +11,7 @@ namespace nsAspur
     class DB
     {
         public static mopromanDBEntities Context;
+        public static bool UKLADA_SA = false;
         
         public static void TestujDB()
         {
@@ -87,13 +88,19 @@ namespace nsAspur
         {
             try
             {
-                Context.SaveChanges();
+                //if (!UKLADA_SA)
+                //{
+                //    UKLADA_SA = true;
+                     Context.SaveChanges();
+                    //UKLADA_SA = false;
+                //}
                 return true;
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Zmeny sa nepodarilo uložiť do databázy z nasledujúceho dôvodu:\n\n" + ex.Message + "\n\n Vykonajte patričné kroky na odstránenie tejto chyby!!!"), "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(String.Format("Zmeny sa nepodarilo uložiť do databázy z nasledujúceho dôvodu:\n\n" + ex.Message + "\n\n Vykonajte patričné kroky na odstránenie tejto chyby!!!"), "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //UKLADA_SA = false;
                 return false;
             }
         }

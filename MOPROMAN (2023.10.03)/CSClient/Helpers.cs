@@ -9,11 +9,14 @@ namespace nsAspur
 {
 
     delegate void dlgLoguj(string text, MessageBoxIcon pTyp);
-    delegate void dlgShowResultInfo(int pResultNumber);
+    delegate void dlgShowResultInfo(int pResultNumber,string pText, int pExTime);
+    delegate void dlgZoznamdoGUI(List<record> pZoznam);
+    delegate void dlgIndAction(int pInt);
+    delegate void dlgStrucnyVypisGUI(String pSizeReadDB, String pSizeReadMK);
 
     class Helpers
     {
-        static Random random = new Random();
+        public static  Random RDM = new Random();
 
 
         public static string dajZmenu(DateTime pDatumCas) {
@@ -29,7 +32,7 @@ namespace nsAspur
         
         static public int dajCislo() {
             
-            return random.Next(100000000, 999999999);
+            return RDM.Next(100000000, 999999999);
         }
 
         static public string Parsuj(String pRetazec) {

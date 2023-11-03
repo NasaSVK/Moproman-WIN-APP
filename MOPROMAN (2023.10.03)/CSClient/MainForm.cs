@@ -23,14 +23,17 @@ namespace nsAspur
     /*Could not create the Java virtual machine*/
     /*https://windowsreport.com/java-virtual-machine-fatal-error/*/
 
-public partial class MainForm : Form
-{
-    private S7Client Client;
-    private S7MultiVar Writer;
+    public partial class MainForm : Form
+    {
 
-    //https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.datagridview.datasource?view=net-5.0
-    //private DataGridView dgvRecords = new DataGridView();
-    private BindingSource bindingSource1 = new BindingSource();
+
+        private Pec PEC_C,PEC_B, PEC_A;
+        private S7Client Client;
+        private S7MultiVar Writer;
+
+        //https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.datagridview.datasource?view=net-5.0
+        //private DataGridView dgvRecords = new DataGridView();
+        private BindingSource bindingSource1 = new BindingSource();
 
         public string CUR_VALUE_BUF_DB { get { return BitConverter.ToString(BufferDB); } }
         public string CUR_VALUE_BUF_MK { get { return Helpers.OdrezAParsuj(System.Text.Encoding.UTF8.GetString(BufferMK)); } }
@@ -38,34 +41,35 @@ public partial class MainForm : Form
         private byte[] TRG = new byte[1] { 0 }; //(byte)'0'
 
         public const int POCET_ZAZNAMOV = 12; //pocet vypisovanych zaznamov do GUI
-    
-        public static  byte[] BufferDB = new byte[MaxBuffer.DB];
+
+        public static byte[] BufferDB = new byte[MaxBuffer.DB];
         int AmountDB = MaxBuffer.DB;
 
-        public static  byte[] BufferMK = new byte[MaxBuffer.MK];
+        public static byte[] BufferMK = new byte[MaxBuffer.MK];
         int AmountMK = MaxBuffer.MK;
 
         string IP_PLC;
-        string PEC_ID = "PEC_B";
 
-    int Rack = 0;
-    int Slot = 2;
-    int DB_Number = 1;
+        string PEC_ID = "PEC_C";
 
-    int ErrorRead = 0; //aktualny stav chyb; ak precita viac ako 3 chyby za sebou odpoji sa a nesledne sa snazi nasledne pripojit             
 
-    public int ErrInterval { get; private set; }
-    public bool SPRACOVAVAM { get; private set; }
-    public int TimeOut { get; private set; }
+        int Rack = 0;
+        int Slot = 2;
+        int DB_Number = 1;
+
+        private int ErrorRead; //aktualny stav chyb; ak precita viac ako 3 chyby za sebou odpoji sa a nesledne sa snazi nasledne pripojit                 
+        public static int MaxErrCount;
+        public static int ErrInterval;
+        public static int ReadInterval;
+        public bool SPRACOVAVAM { get; private set; }
+        public int TimeOut { get; private set; }
 
         private List<Brush> ItemsColor = new List<Brush>();
-    private int MaxErrCount;    
-    
 
         void aktivaciaKomp() {
 
-        lbBytesRead.Enabled = true;
-    }
+            lbBytesRead.Enabled = true;
+        }
 
 
         public MainForm(string[] args)
@@ -83,9 +87,8 @@ public partial class MainForm : Form
             this.nacitajConfig();
             //this.WindowState = FormWindowState.Maximized;
 
-            tmrRead.Tick += new EventHandler(this.read);
-            tmrErr.Tick += new EventHandler(this.PripojKPLC);
-
+            //tmrRead.Tick += new EventHandler(this.read);
+            //tmrErr.Tick += new EventHandler(this.PripojKPLC);
             TimeOut = Properties.Settings.Default.TimeOut;
 
             Client = new S7Client();
@@ -98,13 +101,26 @@ public partial class MainForm : Form
 
             this.Loguj("*** START ***", MessageBoxIcon.Warning);
 
+
             //https://ourcodeworld.com/articles/read/506/winforms-cross-thread-operation-not-valid-control-controlname-accessed-from-a-thread-other-than-the-thread-it-was-created-on
             new Thread(() =>
             {
                 Thread.Sleep(TimeOut);
                 //this.Invoke(new Action(() => this.WindowState = FormWindowState.Minimized));                
                 //MessageBox.Show("Vlakno spustene!");
-            }).Start(); 
+            }).Start();
+
+            //Application.DoEvents();
+            //PripojKPLC(null, null);
+
+            PEC_C = new Pec("PEC_C", "192.168.45.13", 0, 2, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
+            PEC_C.PripojKPLC(null, null);
+            PEC_B = new Pec("PEC_B", "192.168.45.12", 0, 2, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
+            PEC_B.PripojKPLC(null, null);
+            PEC_A = new Pec("PEC_A", "192.168.45.15", 0, 0, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
+            PEC_A.PripojKPLC(null, null);
+
+
         }
 
         private void InitializeDataGridView()
@@ -115,6 +131,15 @@ public partial class MainForm : Form
             //dgvRecords.DataSource = DB.Context.reports.ToList(); //GetData("Select * From Products");
             //dgvRecords.DataSource = bindingSource1;
             aktualizujDtg();
+        }
+
+        void strucnyVypisGUI(String pRAWValue, String pBytesRead) {
+
+            this.Invoke(new Action(() =>
+            {
+                lbPrecHodnotaRaw.Text = pRAWValue;//vypisem orezany buffer                     
+                lbBytesRead.Text = pBytesRead;  //kolko bytov bolo precitanych                                                                                                           
+            }));
         }
 
         private void ReadArea()
@@ -142,8 +167,14 @@ public partial class MainForm : Form
 
             if (ResultDB == 0  && ResultMK == 0 ) {
                 ErrorRead = 0;
-                lbPrecHodnotaRaw.Text = "DB:" + this.CUR_VALUE_BUF_DB.Trim() + " /  " + "MK:" + this.CUR_VALUE_BUF_MK.Trim(); //vypisem orezany buffer                     
-                lbBytesRead.Text = "DB:" + SizeReadDB.ToString()+ " / " + "MK:" + SizeReadMK.ToString();  //kolko bytov bolo precitanych              
+                this.Invoke(new Action(() =>
+                {
+                    //lbPrecHodnotaRaw.Text = "DB:" + this.CUR_VALUE_BUF_DB.Trim() + " /  " + "MK:" + this.CUR_VALUE_BUF_MK.Trim(); //vypisem orezany buffer                     
+                    //lbBytesRead.Text = "DB:" + SizeReadDB.ToString() + " / " + "MK:" + SizeReadMK.ToString();  //kolko bytov bolo precitanych
+                    this.strucnyVypisGUI(
+                        "DB:" + this.CUR_VALUE_BUF_DB.Trim() + " /  " + "MK:" + this.CUR_VALUE_BUF_MK.Trim(),                         
+                        "DB:" + SizeReadDB.ToString() + " / " + "MK:" + SizeReadMK.ToString());
+                }));
                     SPRACOVAVAM = true;
                     SpracujZaznamDB();             
                     SPRACOVAVAM = false;                        
@@ -155,9 +186,9 @@ public partial class MainForm : Form
 
             //Thread.Sleep(this.ErrInterval);
             //po troch chybach citania sa odpajam
-            if (ErrorRead >= 5)
+            if (ErrorRead >= MaxErrCount)
             {
-                Thread.Sleep(this.ErrInterval);
+                Thread.Sleep(ErrInterval);
                 ErrorRead = 0;
                 odpojiť();
                 //kazdych 5 sekund sa snazi pripojit k plc
@@ -209,7 +240,28 @@ public partial class MainForm : Form
                 this.Loguj("### ### ###", MessageBoxIcon.Error);
             }            
         }
+        //__________________________________________________________________________________________________________________________
+        
+        void ZAPISdoGUI(List<record> pZoznam) {
+            try
+            {
+                if (dgvRecords.InvokeRequired)
+                {
+                    
+                    dgvRecords.Invoke(new Action(()=>dgvRecords.DataSource = pZoznam));
+                    return;
+                }
 
+                dgvRecords.DataSource = pZoznam;
+            }
+            
+            catch (Exception ex) {
+                
+                MessageBox.Show("Chyba pri spristupneni GUI inemu vlaknu: \n" + ex.Message, "ERRRRRROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //##########################################################################################################################
         void aktualizujDtg() {
             
             if (DB.Context.records.Count() > 0) { 
@@ -254,29 +306,56 @@ public partial class MainForm : Form
         this.Rack = 0;
         this.Slot = 0;                           
         this.IP_PLC = Properties.Settings.Default.IP_PLC;
-        this.tmrRead.Interval = Properties.Settings.Default.Refresh;
-        this.ErrInterval = Properties.Settings.Default.ErrInt;
-        this.tmrErr.Interval = this.ErrInterval;
-        this.MaxErrCount = Properties.Settings.Default.MaxErrCount;                                    
+        MainForm.ReadInterval = Properties.Settings.Default.Refresh;
+        this.tmrRead.Interval = MainForm.ReadInterval;
+        MainForm.ErrInterval = Properties.Settings.Default.ErrInt;
+        this.tmrErr.Interval = ErrInterval;
+        MainForm.MaxErrCount = Properties.Settings.Default.MaxErrCount;                                    
     }
 
 
     // This function returns a textual explaination of the error code            
-    private void ShowResultInfo(int Result)
-    {            
-        //ak je vysledok 0, zobrazi sa OK a cas citania
-        if (Result == 0)
-        {
-            TextError.ForeColor = Color.Black;
-            TextError.Text = Client.ErrorText(Result) + " (" + Client.ExecutionTime.ToString() + " ms)";
-            this.Loguj("PLC " + Client.ErrorText(Result) + " (" + Client.ExecutionTime.ToString() + " ms)", MessageBoxIcon.None);
-        }
-        else
-        {
-            TextError.ForeColor = Color.Red;
-            TextError.Text = Client.ErrorText(Result);
-            //this.Loguj(Client.ErrorText(Result), MessageBoxIcon.Error);
-        }                           
+    private void ShowResultInfo(int Result, string pErrorText = null, int pExTime = -1)
+    {
+
+            if (TextError.InvokeRequired) {
+
+                //PRED PRENESENIM Clienta do samostatneho suboru
+                //this.TextError.Invoke(new Action(() => ShowResultInfo(Result)));   
+
+                //PO PRENESENI Clienta do samostatneho suboru
+                this.TextError.Invoke(new Action(() =>
+                {
+                    if (Result == 0)
+                    {
+                        TextError.ForeColor = Color.Black;
+                        TextError.Text = pErrorText + " (" + pExTime.ToString() + " ms)";
+                        this.Loguj("PLC " + pErrorText + " (" + pExTime.ToString() + " ms)", MessageBoxIcon.None);
+                    }
+                    else
+                    {
+                        TextError.ForeColor = Color.Red;
+                        TextError.Text = pErrorText;
+                        //this.Loguj(pErrorText, MessageBoxIcon.Error);
+                    }
+                }));  
+            }
+            else
+            {
+                //ak je vysledok 0, zobrazi sa OK a cas citania
+                if (Result == 0)
+                {
+                    TextError.ForeColor = Color.Black;
+                    TextError.Text = Client.ErrorText(Result) + " (" + Client.ExecutionTime.ToString() + " ms)";
+                    this.Loguj("PLC " + Client.ErrorText(Result) + " (" + Client.ExecutionTime.ToString() + " ms)", MessageBoxIcon.None);
+                }
+                else
+                {
+                    TextError.ForeColor = Color.Red;
+                    TextError.Text = Client.ErrorText(Result);
+                    //this.Loguj(Client.ErrorText(Result), MessageBoxIcon.Error);
+                }
+            }                 
     }
 
 
@@ -312,10 +391,11 @@ public partial class MainForm : Form
            default: farba = Color.Black; break;
         }
 
-        if (MessageBoxIcon.Error != pTyp) pText = DateTime.Now + "   " + pText;
+        pText = DateTime.Now + "   " + pText;
 
         //this.lbxLogs.Items.Insert(0, new Label() { ForeColor = Color.Black, Height = 30, Width = 200, Text = pText, Font = new Font(new FontFamily("Comic Sans MS"), 12)});
-
+        
+        //VLASTNY ZOZNAM FARIEB
         this.ItemsColor.Insert(0, new SolidBrush(farba));
 
         if (!this.IsHandleCreated)
@@ -327,7 +407,6 @@ public partial class MainForm : Form
         if (lbxLogs.Items.Count >= 999999) {
             this.ItemsColor.Clear();
             this.lbxLogs.Items.Clear();
-
         }                        
     }
 
@@ -341,8 +420,8 @@ public partial class MainForm : Form
     private void MainForm_Load(object sender, EventArgs e)
     {            
         //System.Windows.Forms.DoEvent();
-        Application.DoEvents();
-        PripojKPLC(null,null);
+        //Application.DoEvents();
+        //PripojKPLC(null,null);
     }
 
     //zatvaranie apky
