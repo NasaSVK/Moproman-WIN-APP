@@ -199,17 +199,17 @@ namespace nsAspur
             {
                 pec_id = this.PEC_ID,
                 date_time = DATE_TIME,
-                napatie = NAPATIE,
-                prud = PRUD,
-                sobert_vstup = SOBERT_VSTUP,
-                sobert_vykon = SOBERT_VYKON,
-                t_voda_vstup = TEPLOTA_VODY_VSTUP,
-                t_voda_vystup = TEPLOTA_VODY_VYSTUP,
-                tlak = TLAK_VODY,
-                rz_pribenie = PRISPOSOBENIE,
-                vykon = VYKON,
+                napatie = (float)Math.Round(NAPATIE, 2),
+                prud = (float)Math.Round(PRUD, 2),
+                sobert_vstup = (float)Math.Round(SOBERT_VSTUP, 2),
+                sobert_vykon = (float)Math.Round(SOBERT_VYKON, 2),
+                t_voda_vstup = (float)Math.Round(TEPLOTA_VODY_VSTUP, 2),
+                t_voda_vystup = (float)Math.Round(TEPLOTA_VODY_VYSTUP, 2),
+                tlak = (float)Math.Round(TLAK_VODY, 2),
+                rz_pribenie = (float)Math.Round(PRISPOSOBENIE, 2),
+                vykon = (float)Math.Round(VYKON, 2),
                 zmena = Helpers.dajZmenu(DATE_TIME)
-            });
+            }) ; 
 
 
             if (DB.UlozDB())
