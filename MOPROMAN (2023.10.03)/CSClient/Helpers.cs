@@ -12,6 +12,7 @@ namespace nsAspur
     delegate void dlgShowResultInfo(int pResultNumber,string pText, int pExTime);
     delegate void dlgZoznamdoGUI(List<record> pZoznam);
     delegate void dlgIndAction(int pInt);
+    delegate float dlgRealActionReal(float pFloat);
     delegate void dlgStrucnyVypisGUI(String pSizeReadDB, String pSizeReadMK);
 
     class Helpers

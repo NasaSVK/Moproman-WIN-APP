@@ -26,6 +26,7 @@ namespace nsAspur
         public int OFFSET;
         public int LENGTH;
         public int AMOUNT_MAX;
+        public dlgRealActionReal dlgPrepocet;
 
         public float getVaue(byte[] pBuffer) { 
             
@@ -40,6 +41,8 @@ namespace nsAspur
             else
                 return S7.GetRealAt(MainForm.BufferMK, OFFSET);
         }
+
+       
     }
 
     class Bytes

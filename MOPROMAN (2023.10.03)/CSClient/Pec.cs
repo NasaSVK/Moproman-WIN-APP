@@ -184,16 +184,16 @@ namespace nsAspur
 
             DateTime DATE_TIME = DateTime.Now;            
 
-            float NAPATIE = this.ADDRESSES.NAPATIE.getVaue(this.BufferMK);
-            float PRUD = this.ADDRESSES.PRUD.getVaue(this.BufferMK);
+            float NAPATIE = this.ADDRESSES.NAPATIE.dlgPrepocet(this.ADDRESSES.NAPATIE.getVaue(this.BufferMK));
+            float PRUD = this.ADDRESSES.PRUD.dlgPrepocet(this.ADDRESSES.PRUD.getVaue(this.BufferMK));
             float SOBERT_VSTUP = this.ADDRESSES.SOBERT_VSTUP.getVaue(this.BufferMK);
             float SOBERT_VYKON = this.ADDRESSES.SOBERT_VYKON.getVaue(this.BufferMK);
             float VYKON = this.ADDRESSES.VYKON.getVaue(this.BufferMK);
             float PRISPOSOBENIE = this.ADDRESSES.PRISPOSOBENIE.getVaue(this.BufferMK);
 
-            float TLAK_VODY = this.ADDRESSES.NAPATIE.getVaue(this.BufferMK);
-            float TEPLOTA_VODY_VSTUP = this.ADDRESSES.TEPLOTA_VODY_VSTUP.getVaue(this.BufferMK);
-            float TEPLOTA_VODY_VYSTUP = this.ADDRESSES.TEPLOTA_VODY_VYSTUP.getVaue(this.BufferMK);
+            float TLAK_VODY = this.ADDRESSES.TLAK_VODY.getVaue(this.BufferDB);
+            float TEPLOTA_VODY_VSTUP = this.ADDRESSES.TEPLOTA_VODY_VSTUP.getVaue(this.BufferDB);
+            float TEPLOTA_VODY_VYSTUP = this.ADDRESSES.TEPLOTA_VODY_VYSTUP.getVaue(this.BufferDB);
 
             DB.ulozDoDB(new record()
             {
