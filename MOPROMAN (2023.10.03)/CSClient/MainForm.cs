@@ -113,13 +113,13 @@ namespace nsAspur
             //Application.DoEvents();
             //PripojKPLC(null, null);
 
-            PEC_C = new Pec("PEC_C", "192.168.45.13", 0, 2, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
-            PEC_C.PripojKPLC(null, null);
-            PEC_B = new Pec("PEC_B", "192.168.45.12", 0, 2, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
-            PEC_B.PripojKPLC(null, null);
-            PEC_A = new Pec("PEC_A", "192.168.45.15", 0, 0, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
+            PEC_A = new Pec("PEC_A", "192.168.45.15", 0, 1, 8, 0, 0, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
             PEC_A.PripojKPLC(null, null);
-
+            PEC_B = new Pec("PEC_B", "192.168.45.12", 0, 2, 60, 0, 168, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
+            PEC_B.PripojKPLC(null, null);
+            PEC_C = new Pec("PEC_C", "192.168.45.13", 0, 2,68,0,168,this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
+            PEC_C.PripojKPLC(null, null);
+            
 
         }
 

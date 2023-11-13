@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="mopromanDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="mopromanDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="record">
           <Key>
             <PropertyRef Name="id" />
@@ -22,23 +22,26 @@
           <Property Name="sobert_vykon" Type="real" />
           <Property Name="tlak" Type="real" />
           <Property Name="zmena" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="frekvencia" Type="float" />
+          <Property Name="teplota_p1" Type="float" />
+          <Property Name="teplota_p2" Type="float" />
+          <Property Name="teplota_okruh" Type="float" />
+          <Property Name="prietok_vody" Type="float" />
         </EntityType>
         <EntityContainer Name="mopromanDBModelStoreContainer">
           <EntitySet Name="record" EntityType="Self.record" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="mopromanDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="mopromanDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="records" EntityType="mopromanDBModel.record" />
-        </EntityContainer>
         <EntityType Name="record">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="pec_id" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="pec_id" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="napatie" Type="Single" />
           <Property Name="prud" Type="Single" />
           <Property Name="sobert_vstup" Type="Single" />
@@ -49,8 +52,16 @@
           <Property Name="date_time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="sobert_vykon" Type="Single" />
           <Property Name="tlak" Type="Single" />
-          <Property Name="zmena" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="zmena" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="frekvencia" Type="Double" />
+          <Property Name="teplota_p1" Type="Double" />
+          <Property Name="teplota_p2" Type="Double" />
+          <Property Name="teplota_okruh" Type="Double" />
+          <Property Name="prietok_vody" Type="Double" />
         </EntityType>
+        <EntityContainer Name="mopromanDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="records" EntityType="Self.record" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -60,19 +71,24 @@
           <EntitySetMapping Name="records">
             <EntityTypeMapping TypeName="mopromanDBModel.record">
               <MappingFragment StoreEntitySet="record">
-                <ScalarProperty Name="zmena" ColumnName="zmena" />
-                <ScalarProperty Name="tlak" ColumnName="tlak" />
-                <ScalarProperty Name="sobert_vykon" ColumnName="sobert_vykon" />
-                <ScalarProperty Name="date_time" ColumnName="date_time" />
-                <ScalarProperty Name="rz_pribenie" ColumnName="rz_pribenie" />
-                <ScalarProperty Name="vykon" ColumnName="vykon" />
-                <ScalarProperty Name="t_voda_vystup" ColumnName="t_voda_vystup" />
-                <ScalarProperty Name="t_voda_vstup" ColumnName="t_voda_vstup" />
-                <ScalarProperty Name="sobert_vstup" ColumnName="sobert_vstup" />
-                <ScalarProperty Name="prud" ColumnName="prud" />
-                <ScalarProperty Name="napatie" ColumnName="napatie" />
-                <ScalarProperty Name="pec_id" ColumnName="pec_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pec_id" ColumnName="pec_id" />
+                <ScalarProperty Name="napatie" ColumnName="napatie" />
+                <ScalarProperty Name="prud" ColumnName="prud" />
+                <ScalarProperty Name="sobert_vstup" ColumnName="sobert_vstup" />
+                <ScalarProperty Name="t_voda_vstup" ColumnName="t_voda_vstup" />
+                <ScalarProperty Name="t_voda_vystup" ColumnName="t_voda_vystup" />
+                <ScalarProperty Name="vykon" ColumnName="vykon" />
+                <ScalarProperty Name="rz_pribenie" ColumnName="rz_pribenie" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="sobert_vykon" ColumnName="sobert_vykon" />
+                <ScalarProperty Name="tlak" ColumnName="tlak" />
+                <ScalarProperty Name="zmena" ColumnName="zmena" />
+                <ScalarProperty Name="frekvencia" ColumnName="frekvencia" />
+                <ScalarProperty Name="teplota_p1" ColumnName="teplota_p1" />
+                <ScalarProperty Name="teplota_p2" ColumnName="teplota_p2" />
+                <ScalarProperty Name="teplota_okruh" ColumnName="teplota_okruh" />
+                <ScalarProperty Name="prietok_vody" ColumnName="prietok_vody" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

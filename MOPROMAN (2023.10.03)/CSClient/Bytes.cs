@@ -12,6 +12,7 @@ namespace nsAspur
     class MaxBuffer { 
         public const int DB = 64;
         public const int MK = 168;
+        public const int DB4 = 4;
     }
 
     class DBatributes { 

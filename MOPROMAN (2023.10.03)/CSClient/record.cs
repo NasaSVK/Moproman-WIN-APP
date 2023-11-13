@@ -27,5 +27,10 @@ namespace nsAspur
         public Nullable<float> sobert_vykon { get; set; }
         public Nullable<float> tlak { get; set; }
         public string zmena { get; set; }
+        public Nullable<double> frekvencia { get; set; }
+        public Nullable<double> teplota_p1 { get; set; }
+        public Nullable<double> teplota_p2 { get; set; }
+        public Nullable<double> teplota_okruh { get; set; }
+        public Nullable<double> prietok_vody { get; set; }
     }
 }

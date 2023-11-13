@@ -24,6 +24,8 @@ namespace nsAspur
 
         private Addresses ADDRESSES;
 
+        private byte[] BufferDB4 = new byte[MaxBuffer.DB4];
+        int AmountDB4 = MaxBuffer.DB4;
         private byte[] BufferDB = new byte[MaxBuffer.DB];
         int AmountDB = MaxBuffer.DB;
         private byte[] BufferMK = new byte[MaxBuffer.MK];
@@ -48,12 +50,20 @@ namespace nsAspur
         public string CUR_VALUE_BUF_MK { get { return Helpers.OdrezAParsuj(System.Text.Encoding.UTF8.GetString(BufferMK)); } }
 
 
-        public Pec(string pPecID, string pIP_PLC, int pRack, int pSlot, dlgLoguj pDlgLoguj, dlgZoznamdoGUI pdlgZoznamdoGUI, dlgShowResultInfo pDlgShowResultInfo, dlgStrucnyVypisGUI pdlgStrucnyVypisGUI)
+        public Pec(string pPecID, string pIP_PLC, int pRack, int pSlot, int pAmountDB,int pAmountDb4,int pAmountMK, dlgLoguj pDlgLoguj, dlgZoznamdoGUI pdlgZoznamdoGUI, dlgShowResultInfo pDlgShowResultInfo, dlgStrucnyVypisGUI pdlgStrucnyVypisGUI)
         {
             this.PEC_ID = pPecID;
             this.IP_PLC = pIP_PLC;
             this.Rack = pRack;
             this.Slot = pSlot;
+
+            this.AmountDB = pAmountDB;
+            this.AmountDB4 = pAmountDb4;
+            this.AmountMK = pAmountMK;
+
+            this.BufferDB = new byte[AmountDB];
+            this.BufferDB4 = new byte[AmountDB4];
+            this.BufferMK = new byte[AmountMK];
 
             this.Client = new S7Client();
             this.Writer = new S7MultiVar(Client);
@@ -69,8 +79,9 @@ namespace nsAspur
             tmrError.Elapsed += new ElapsedEventHandler(PripojKPLC);
 
             this.ADDRESSES = new Addresses(this.PEC_ID);
-            this.AmountMK = this.ADDRESSES.NAPATIE.AMOUNT_MAX;
-            this.AmountDB = this.ADDRESSES.TLAK_VODY.AMOUNT_MAX;
+            //this.AmountMK = this.ADDRESSES.NAPATIE.AMOUNT_MAX;
+            //this.AmountDB = this.ADDRESSES.TEPLOTA_VODY_VSTUP.AMOUNT_MAX;
+            //this.AmountDB4 = this.ADDRESSES.FREKVENCIA.AMOUNT_MAX;
         }
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
@@ -79,22 +90,24 @@ namespace nsAspur
             this.ReadArea();
         }
 
-
-
         private void ReadArea()
         {
-            int ResultMK, ResultDB = 0;
-            int SizeReadDB = 0, SizeReadMK = 0;
+            int ResultMK = 0, ResultDB = 0, ResultDB4 = 0;
+            int SizeReadDB = 0, SizeReadDB4 = 0, SizeReadMK = 0;
 
             //#################################################################################################################
+            if (AmountDB4 != 0)
+                ResultDB4 = Client.ReadArea(S7Consts.S7AreaDB, 004, 0, this.AmountDB4, S7Consts.S7WLByte, BufferDB4, ref SizeReadDB4);
+            if (AmountDB != 0)
                 ResultDB = Client.ReadArea(S7Consts.S7AreaDB, 001, 0, this.AmountDB, S7Consts.S7WLByte, BufferDB, ref SizeReadDB);
+            if (AmountMK != 0)
                 ResultMK = Client.ReadArea(S7Consts.S7AreaMK, 000, 0, this.AmountMK, S7Consts.S7WLByte, BufferMK, ref SizeReadMK);                   
             //#################################################################################################################
 
             //ak je resut OK (0) vypise do logu OK, ak nie je OK vypisem nieco ine
             this.ShowResultInfo(ResultDB + ResultMK,Client.ErrorText(ResultMK) + " / "+Client.ErrorText(ResultDB), Client.ExecutionTime);
 
-            if (ResultDB == 0 && ResultMK == 0)
+            if (ResultDB == 0 && ResultMK == 0 && ResultDB4 == 0)
             {
                 ErrorRead = 0;
                 //lbPrecHodnotaRaw.Text = "DB:" + this.CUR_VALUE_BUF_DB.Trim() + " /  " + "MK:" + this.CUR_VALUE_BUF_MK.Trim(); //vypisem orezany buffer                     
@@ -181,35 +194,33 @@ namespace nsAspur
 
         private void SpracujZaznamDB()
         {
-
-            DateTime DATE_TIME = DateTime.Now;            
-
-            float NAPATIE = this.ADDRESSES.NAPATIE.dlgPrepocet(this.ADDRESSES.NAPATIE.getVaue(this.BufferMK));
-            float PRUD = this.ADDRESSES.PRUD.dlgPrepocet(this.ADDRESSES.PRUD.getVaue(this.BufferMK));
-            float SOBERT_VSTUP = this.ADDRESSES.SOBERT_VSTUP.getVaue(this.BufferMK);
-            float SOBERT_VYKON = this.ADDRESSES.SOBERT_VYKON.getVaue(this.BufferMK);
-            float VYKON = this.ADDRESSES.VYKON.getVaue(this.BufferMK);
-            float PRISPOSOBENIE = this.ADDRESSES.PRISPOSOBENIE.getVaue(this.BufferMK);
-
-            float TLAK_VODY = this.ADDRESSES.TLAK_VODY.getVaue(this.BufferDB);
-            float TEPLOTA_VODY_VSTUP = this.ADDRESSES.TEPLOTA_VODY_VSTUP.getVaue(this.BufferDB);
-            float TEPLOTA_VODY_VYSTUP = this.ADDRESSES.TEPLOTA_VODY_VYSTUP.getVaue(this.BufferDB);
+            DateTime DATE_TIME = DateTime.Now;                        
+            float? NAPATIE = this.ADDRESSES.NAPATIE?.getVaue(this.BufferMK);
+            float? PRUD = this.ADDRESSES.PRUD?.getVaue(this.BufferMK);
+            float? SOBERT_VSTUP = this.ADDRESSES.SOBERT_VSTUP?.getVaue(this.BufferMK);
+            float? SOBERT_VYKON = this.ADDRESSES.SOBERT_VYKON?.getVaue(this.BufferMK);
+            float? VYKON = this.ADDRESSES.VYKON?.getVaue(this.BufferMK);
+            float? PRISPOSOBENIE = this.ADDRESSES.PRISPOSOBENIE?.getVaue(this.BufferMK);                
+            float? TLAK_VODY = this.ADDRESSES.TLAK_VODY?.getVaue(this.BufferDB);
+            float? TEPLOTA_VODY_VSTUP = this.ADDRESSES.TEPLOTA_VODY_VSTUP?.getVaue(this.BufferDB) ;
+            float? TEPLOTA_VODY_VYSTUP = this.ADDRESSES.TEPLOTA_VODY_VYSTUP?.getVaue(this.BufferDB);
+            //float? napatie = NAPATIE!=null? (float?)Math.Round((float)NAPATIE, 2):null;
 
             DB.ulozDoDB(new record()
             {
                 pec_id = this.PEC_ID,
                 date_time = DATE_TIME,
-                napatie = (float)Math.Round(NAPATIE, 2),
-                prud = (float)Math.Round(PRUD, 2),
-                sobert_vstup = (float)Math.Round(SOBERT_VSTUP, 2),
-                sobert_vykon = (float)Math.Round(SOBERT_VYKON, 2),
-                t_voda_vstup = (float)Math.Round(TEPLOTA_VODY_VSTUP, 2),
-                t_voda_vystup = (float)Math.Round(TEPLOTA_VODY_VYSTUP, 2),
-                tlak = (float)Math.Round(TLAK_VODY, 2),
-                rz_pribenie = (float)Math.Round(PRISPOSOBENIE, 2),
-                vykon = (float)Math.Round(VYKON, 2),
+                napatie = NAPATIE.HasValue ? (float?)Math.Round((float)NAPATIE, 2) : null,
+                prud = PRUD.HasValue? (float?)Math.Round((float)PRUD, 2):null,
+                sobert_vstup = SOBERT_VSTUP.HasValue?(float?)Math.Round((float)SOBERT_VSTUP, 2):null,
+                sobert_vykon = SOBERT_VYKON.HasValue?(float?)Math.Round((float)SOBERT_VYKON, 2):null,
+                t_voda_vstup = TEPLOTA_VODY_VSTUP.HasValue ? (float?)Math.Round((float)TEPLOTA_VODY_VSTUP, 2) : null,
+                t_voda_vystup = TEPLOTA_VODY_VYSTUP.HasValue ? (float?)Math.Round((float)TEPLOTA_VODY_VYSTUP, 2) : null,
+                tlak = TLAK_VODY.HasValue ? (float?)Math.Round((float)TLAK_VODY, 2) : null,
+                rz_pribenie = PRISPOSOBENIE.HasValue ? (float?)Math.Round((float)PRISPOSOBENIE, 2) : null,
+                vykon = VYKON.HasValue ? (float?)Math.Round((float)VYKON, 2) : null,
                 zmena = Helpers.dajZmenu(DATE_TIME)
-            }) ; 
+            });
 
 
             if (DB.UlozDB())

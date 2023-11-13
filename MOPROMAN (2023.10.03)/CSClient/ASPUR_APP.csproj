@@ -98,26 +98,26 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="mopromanMD.Context.cs">
+    <Compile Include="mopromanDBEntityDM.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>mopromanMD.Context.tt</DependentUpon>
+      <DependentUpon>mopromanDBEntityDM.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="mopromanMD.cs">
+    <Compile Include="mopromanDBEntityDM.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>mopromanMD.tt</DependentUpon>
+      <DependentUpon>mopromanDBEntityDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="mopromanMD.Designer.cs">
+    <Compile Include="mopromanDBEntityDM.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>mopromanMD.edmx</DependentUpon>
+      <DependentUpon>mopromanDBEntityDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="Pec.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="record.cs">
-      <DependentUpon>mopromanMD.tt</DependentUpon>
+      <DependentUpon>mopromanDBEntityDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Sharp7.cs" />
@@ -138,12 +138,12 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <EntityDeploy Include="mopromanMD.edmx">
+    <EntityDeploy Include="mopromanDBEntityDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>mopromanMD.Designer.cs</LastGenOutput>
+      <LastGenOutput>mopromanDBEntityDM.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="mopromanMD.edmx.diagram">
-      <DependentUpon>mopromanMD.edmx</DependentUpon>
+    <None Include="mopromanDBEntityDM.edmx.diagram">
+      <DependentUpon>mopromanDBEntityDM.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -166,15 +166,15 @@
     <Content Include="ASPUR85.ico" />
     <Content Include="ASPUR85.png" />
     <Content Include="FLAME.ico" />
-    <Content Include="mopromanMD.Context.tt">
+    <Content Include="mopromanDBEntityDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>mopromanMD.edmx</DependentUpon>
-      <LastGenOutput>mopromanMD.Context.cs</LastGenOutput>
+      <DependentUpon>mopromanDBEntityDM.edmx</DependentUpon>
+      <LastGenOutput>mopromanDBEntityDM.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="mopromanMD.tt">
+    <Content Include="mopromanDBEntityDM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>mopromanMD.edmx</DependentUpon>
-      <LastGenOutput>mopromanMD.cs</LastGenOutput>
+      <DependentUpon>mopromanDBEntityDM.edmx</DependentUpon>
+      <LastGenOutput>mopromanDBEntityDM.cs</LastGenOutput>
     </Content>
     <None Include="Resources\FLAME.png" />
     <None Include="Resources\tuba_ICO.png" />
