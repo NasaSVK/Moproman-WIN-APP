@@ -9,8 +9,9 @@ namespace nsAspur
 {
 
     delegate void dlgLoguj(string text, MessageBoxIcon pTyp);
-    delegate void dlgShowResultInfo(int pResultNumber,string pText, int pExTime);
+    delegate void dlgShowResultInfo(string pPLCID, int pResultNumber,string pText, int pExTime);
     delegate void dlgZoznamdoGUI(List<record> pZoznam);
+    delegate void dlgZaznamDoGUI(record pRecord);
     delegate void dlgIndAction(int pInt);
     delegate float dlgRealActionReal(float pFloat);
     delegate void dlgStrucnyVypisGUI(String pSizeReadDB, String pSizeReadMK);

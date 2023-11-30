@@ -11,6 +11,7 @@ using Sharp7;
 using System.Threading;
 using System.IO;
 using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
 
 
 //Automatické skrutkovanie pomocou robotov Universal Robots
@@ -27,7 +28,7 @@ namespace nsAspur
     {
 
 
-        private Pec PEC_C,PEC_B, PEC_A;
+        private Pec PEC_H, PEC_G, PEC_D, PEC_C, PEC_B, PEC_A;
         private S7Client Client;
         private S7MultiVar Writer;
 
@@ -41,7 +42,7 @@ namespace nsAspur
         private byte[] TRG = new byte[1] { 0 }; //(byte)'0'
 
         public const int POCET_ZAZNAMOV = 12; //pocet vypisovanych zaznamov do GUI
-
+        //private readonly int MAX_COUNT = 10;
         public static byte[] BufferDB = new byte[MaxBuffer.DB];
         int AmountDB = MaxBuffer.DB;
 
@@ -62,9 +63,12 @@ namespace nsAspur
         public static int ErrInterval;
         public static int ReadInterval;
         public bool SPRACOVAVAM { get; private set; }
+        public bool MAZEM { get; private set; }
         public int TimeOut { get; private set; }
 
         private List<Brush> ItemsColor = new List<Brush>();
+
+        private List<record> lstRecords = new List<record>();
 
         void aktivaciaKomp() {
 
@@ -72,9 +76,28 @@ namespace nsAspur
         }
 
 
+        void zapisDoListu(record pRecord) {
+
+
+            while (lstRecords.Count >= POCET_ZAZNAMOV)
+            {
+                lstRecords.RemoveAt(0);
+            }
+            lstRecords.Add(pRecord);
+
+            this.Invoke(new Action(() =>
+            {
+                dgvRecords.DataSource = null;
+                //lstRecords.Reverse();
+                dgvRecords.DataSource = lstRecords; //lstRecords.Reverse<record>().ToList();
+                //dgvRecords.Refresh();
+            }));                
+        }
+
         public MainForm(string[] args)
         {
 
+            
             InitializeComponent();
 
             DB.TestujDB();
@@ -113,13 +136,21 @@ namespace nsAspur
             //Application.DoEvents();
             //PripojKPLC(null, null);
 
-            PEC_A = new Pec("PEC_A", "192.168.45.15", 0, 1, 8, 0, 0, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
+           
+            PEC_A = new Pec("PEC_A", "192.168.45.15", 0, 1, 8, 0, 0, 0, 0, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI, this.zapisDoListu);
             PEC_A.PripojKPLC(null, null);
-            PEC_B = new Pec("PEC_B", "192.168.45.12", 0, 2, 60, 0, 168, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
+            PEC_B = new Pec("PEC_B", "192.168.45.12", 0, 2, 60, 0, 0, 0, 168, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI, this.zapisDoListu);
             PEC_B.PripojKPLC(null, null);
-            PEC_C = new Pec("PEC_C", "192.168.45.13", 0, 2,68,0,168,this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI);
+            PEC_C = new Pec("PEC_C", "192.168.45.13", 0, 2, 68, 0, 0, 0, 168, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI, this.zapisDoListu);
             PEC_C.PripojKPLC(null, null);
-            
+            PEC_D = new Pec("PEC_D", "192.168.45.14", 0, 2, 68, 0, 0, 0, 168, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI, this.zapisDoListu);
+            PEC_D.PripojKPLC(null, null);
+            PEC_G = new Pec("PEC_G", "192.168.45.16", 0, 2, 68, 0, 0, 0, 168, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI, this.zapisDoListu);
+            PEC_G.PripojKPLC(null, null);
+            PEC_H = new Pec("PEC_H", "192.168.45.17", 0, 1, 0, 0, 36, 28, 0, this.Loguj, this.ZAPISdoGUI, this.ShowResultInfo, this.strucnyVypisGUI, this.zapisDoListu);
+            PEC_H.PripojKPLC(null, null);
+
+            this.Size = new System.Drawing.Size(1600,1000);
 
         }
 
@@ -163,7 +194,7 @@ namespace nsAspur
             //#################################################################################################################
 
             //ak je resut OK (0) vypise do logu OK, ak nie je OK vypisem nieco ine
-            this.ShowResultInfo(ResultDB + ResultMK);            
+            this.ShowResultInfo(this.IP_PLC, ResultDB + ResultMK);            
 
             if (ResultDB == 0  && ResultMK == 0 ) {
                 ErrorRead = 0;
@@ -315,7 +346,7 @@ namespace nsAspur
 
 
     // This function returns a textual explaination of the error code            
-    private void ShowResultInfo(int Result, string pErrorText = null, int pExTime = -1)
+    private void ShowResultInfo(string pPLCID, int Result,string pErrorText = null, int pExTime = -1)
     {
 
             if (TextError.InvokeRequired) {
@@ -329,13 +360,13 @@ namespace nsAspur
                     if (Result == 0)
                     {
                         TextError.ForeColor = Color.Black;
-                        TextError.Text = pErrorText + " (" + pExTime.ToString() + " ms)";
-                        this.Loguj("PLC " + pErrorText + " (" + pExTime.ToString() + " ms)", MessageBoxIcon.None);
+                        TextError.Text = pPLCID + ": " + pErrorText + " (" + pExTime.ToString() + " ms)";
+                        this.Loguj(pPLCID + ": " + pErrorText + " (" + pExTime.ToString() + " ms)", MessageBoxIcon.None);
                     }
                     else
                     {
                         TextError.ForeColor = Color.Red;
-                        TextError.Text = pErrorText;
+                        TextError.Text = pPLCID+": " + pErrorText;
                         //this.Loguj(pErrorText, MessageBoxIcon.Error);
                     }
                 }));  
@@ -379,8 +410,9 @@ namespace nsAspur
     //########################################################################################################################################
 
     //vypis logu ListBox-u
-    private void Loguj(string pText, MessageBoxIcon pTyp)
+    private void Loguj(string pText, MessageBoxIcon pTyp = MessageBoxIcon.None)
     {
+        if (MAZEM) return;            
         Color farba;
 
         switch (pTyp) { 
@@ -393,21 +425,18 @@ namespace nsAspur
 
         pText = DateTime.Now + "   " + pText;
 
-        //this.lbxLogs.Items.Insert(0, new Label() { ForeColor = Color.Black, Height = 30, Width = 200, Text = pText, Font = new Font(new FontFamily("Comic Sans MS"), 12)});
-        
-        //VLASTNY ZOZNAM FARIEB
-        this.ItemsColor.Insert(0, new SolidBrush(farba));
+            //this.lbxLogs.Items.Insert(0, new Label() { ForeColor = Color.Black, Height = 30, Width = 200, Text = pText, Font = new Font(new FontFamily("Comic Sans MS"), 12)});
 
-        if (!this.IsHandleCreated)
-        {
-            //this.CreateHandle();
-        }
-        this.Invoke(new Action(()=>lbxLogs.Items.Insert(0, pText)));
+            //VLASTNY ZOZNAM FARIEB       
+            this.ItemsColor.Insert(0, new SolidBrush(farba));            
+            this.Invoke(new Action(()=>lbxLogs.Items.Insert(0, pText)));
 
-        if (lbxLogs.Items.Count >= 999999) {
-            this.ItemsColor.Clear();
-            this.lbxLogs.Items.Clear();
-        }                        
+        if (lbxLogs.Items.Count >= 100) {
+                this.MAZEM = true;                
+                this.lbxLogs.Invoke(new Action(()=> this.lbxLogs.Items.Clear()));
+                this.ItemsColor.Clear();
+                this.MAZEM = false;
+            }                        
     }
 
     //otvorenie okna na zobrazenie informaci a apke
@@ -424,8 +453,101 @@ namespace nsAspur
         //PripojKPLC(null,null);
     }
 
-    //zatvaranie apky
-    private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void btnStartStopA_Click(object sender, EventArgs e)
+        {
+            if (btnStartStopA.Text == "PS A")
+            {
+                btnStartStopA.Text = "ST A";
+                PEC_A.DeaktivujTimer();                
+                this.Loguj("*** PAUSE PEC_A ***", MessageBoxIcon.Warning);
+            }
+            else
+            {
+                btnStartStopA.Text = "PT A";
+                PEC_A.AktivujTimer();                
+                this.Loguj("*** START PEC_A ***", MessageBoxIcon.Warning);
+            }
+        }
+        private void btnStartStopB_Click(object sender, EventArgs e)
+        {
+            if (btnStartStopB.Text == "PS B")
+            {
+                btnStartStopB.Text = "ST B";
+                PEC_B.DeaktivujTimer();
+                this.Loguj("*** PAUSE PEC_B ***", MessageBoxIcon.Warning);
+            }
+            else
+            {
+                btnStartStopB.Text = "PT B";
+                PEC_B.AktivujTimer();
+                this.Loguj("*** START PEC_B ***", MessageBoxIcon.Warning);
+            }
+        }
+        private void btnStartStopC_Click(object sender, EventArgs e)
+        {
+            if (btnStartStopC.Text == "PS C")
+            {
+                btnStartStopC.Text = "ST C";
+                PEC_C.DeaktivujTimer();
+                this.Loguj("*** PAUSE PEC_C ***", MessageBoxIcon.Warning);
+            }
+            else
+            {
+                btnStartStopC.Text = "PT C";
+                PEC_C.AktivujTimer();
+                this.Loguj("*** START PEC_C ***", MessageBoxIcon.Warning);
+            }
+        }
+        private void btnStartStopD_Click(object sender, EventArgs e)
+        {
+            if (btnStartStopD.Text == "PS D")
+            {
+                btnStartStopD.Text = "ST D";
+                PEC_D.DeaktivujTimer();
+                this.Loguj("*** PAUSE PEC_D ***", MessageBoxIcon.Warning);
+            }
+            else
+            {
+                btnStartStopD.Text = "PT D";
+                PEC_D.AktivujTimer();
+                this.Loguj("*** START PEC_D ***", MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnStartStopG_Click(object sender, EventArgs e)
+        {
+            if (btnStartStopG.Text == "PS G")
+            {
+                btnStartStopG.Text = "ST G";
+                PEC_G.DeaktivujTimer();
+                this.Loguj("*** PAUSE PEC_G ***", MessageBoxIcon.Warning);
+            }
+            else
+            {
+                btnStartStopG.Text = "PT G";
+                PEC_G.AktivujTimer();
+                this.Loguj("*** START PEC_G ***", MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnStartStopH_Click(object sender, EventArgs e)
+        {
+            if (btnStartStopH.Text == "PS H")
+            {
+                btnStartStopH.Text = "ST H";
+                PEC_H.DeaktivujTimer();
+                this.Loguj("*** PAUSE PEC_H ***", MessageBoxIcon.Warning);
+            }
+            else
+            {
+                btnStartStopH.Text = "PT H";
+                PEC_H.AktivujTimer();
+                this.Loguj("*** START PEC_H ***", MessageBoxIcon.Warning);
+            }
+        }
+
+        //zatvaranie apky
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
     {
         this.odpojiť();
     }
@@ -464,20 +586,40 @@ namespace nsAspur
     }
 
 
-    //ZAPIS FARABENEJ POLOZKY DO ListBoxu
-    //http://www.thescarms.com/dotnet/CustomListBox.aspx
-    private void lbxLogs_DrawItem(object sender, DrawItemEventArgs e)
-    {
-        e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
-          e.Font, this.ItemsColor[e.Index], e.Bounds, StringFormat.GenericDefault);
-        /*
-        if (e.Index != 0) 
-        e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
-          e.Font, new SolidBrush(e.ForeColor), e.Bounds, StringFormat.GenericDefault);
-        else
+        //ZAPIS FARABENEJ POLOZKY DO ListBoxu
+        //http://www.thescarms.com/dotnet/CustomListBox.aspx
+        private void lbxLogs_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            try
+            {
+                e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
+              e.Font, this.ItemsColor[e.Index], e.Bounds, StringFormat.GenericDefault);
+            }
+            catch (ArgumentNullException) {
+                //((ListBox)sender).Items.RemoveAt(e.Index);
+                //this.ItemsColor.Insert(0, new SolidBrush(farba))
+                this.ItemsColor.Insert(e.Index, new SolidBrush(Color.Black));
+                //MessageBox.Show("Nesulad v pocte poloziek a farieb", "CHYBA!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                if (e.Index < 0)
+                    this.Loguj("Index od DrawItem is MENSIAKONULA",MessageBoxIcon.Warning);
+                else
+                this.ItemsColor.Insert(e.Index, new SolidBrush(Color.Black));                
+            }
+
+            
+
+            /*
+            if (e.Index != 0) 
             e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
-          e.Font, CurrentBrush, e.Bounds, StringFormat.GenericDefault);*/
-}
+              e.Font, new SolidBrush(e.ForeColor), e.Bounds, StringFormat.GenericDefault);
+            else
+                e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
+              e.Font, CurrentBrush, e.Bounds, StringFormat.GenericDefault);*/
+        }
 
 //START/PAUSE skenovania
 private void btnStop_Click(object sender, EventArgs e)
@@ -485,14 +627,27 @@ private void btnStop_Click(object sender, EventArgs e)
             if (btnStop.Text == "PAUSE")
             {
                 btnStop.Text = "START";
-                tmrRead.Enabled = false;
-                tmrErr.Enabled = false;
+                //tmrRead.Enabled = false;
+                //tmrErr.Enabled = false;
+                PEC_A.DeaktivujTimer();
+                PEC_B.DeaktivujTimer();
+                PEC_C.DeaktivujTimer();
+                PEC_D.DeaktivujTimer();
+                PEC_G.DeaktivujTimer();
+                PEC_H.DeaktivujTimer();
                 this.Loguj("*** PAUSE ***", MessageBoxIcon.Warning);
             }
             else
             {
                 btnStop.Text = "PAUSE";
-                tmrRead.Enabled = true;
+                PEC_A.AktivujTimer();
+                PEC_B.AktivujTimer();
+                PEC_C.AktivujTimer();
+                PEC_D.AktivujTimer();
+                PEC_G.AktivujTimer();
+                PEC_H.AktivujTimer();
+
+                //tmrRead.Enabled = true;
                 this.Loguj("*** START ***", MessageBoxIcon.Warning);
             }
                 

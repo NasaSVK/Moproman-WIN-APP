@@ -22,11 +22,11 @@
           <Property Name="sobert_vykon" Type="real" />
           <Property Name="tlak" Type="real" />
           <Property Name="zmena" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="frekvencia" Type="float" />
-          <Property Name="teplota_p1" Type="float" />
-          <Property Name="teplota_p2" Type="float" />
-          <Property Name="teplota_okruh" Type="float" />
-          <Property Name="prietok_vody" Type="float" />
+          <Property Name="frekvencia" Type="real" />
+          <Property Name="teplota_p1" Type="real" />
+          <Property Name="teplota_p2" Type="real" />
+          <Property Name="teplota_okruh" Type="real" />
+          <Property Name="prietok_vody" Type="real" />
         </EntityType>
         <EntityContainer Name="mopromanDBModelStoreContainer">
           <EntitySet Name="record" EntityType="Self.record" Schema="dbo" store:Type="Tables" />
@@ -53,11 +53,11 @@
           <Property Name="sobert_vykon" Type="Single" />
           <Property Name="tlak" Type="Single" />
           <Property Name="zmena" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="frekvencia" Type="Double" />
-          <Property Name="teplota_p1" Type="Double" />
-          <Property Name="teplota_p2" Type="Double" />
-          <Property Name="teplota_okruh" Type="Double" />
-          <Property Name="prietok_vody" Type="Double" />
+          <Property Name="frekvencia" Type="Single" />
+          <Property Name="teplota_p1" Type="Single" />
+          <Property Name="teplota_p2" Type="Single" />
+          <Property Name="teplota_okruh" Type="Single" />
+          <Property Name="prietok_vody" Type="Single" />
         </EntityType>
         <EntityContainer Name="mopromanDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="records" EntityType="Self.record" />

@@ -26,7 +26,7 @@ namespace nsAspur
         public Address TEPLOTA_VODY_P2;
 
         public Address FREKVENCIA;
-        public Address TEPLOTA_VODY_PRIMARNY_OKRUH;
+        public Address TEPLOTA_PRIMARNY_OKRUH;
 
         public Addresses(string pPec)
         {
@@ -36,7 +36,7 @@ namespace nsAspur
 
                 case ("PEC_A"):
                     int DB4_MAX = 4; int DB1_MAX = 8;
-                    FREKVENCIA = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 4, OFFSET = 5, LENGTH = 4, AMOUNT_MAX = MaxBuffer.DB, dlgPrepocet = (float pY) => pY };                    
+                    //FREKVENCIA = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 4, OFFSET = 5, LENGTH = 4, AMOUNT_MAX = MaxBuffer.DB, dlgPrepocet = (float pY) => pY };                    
                     TEPLOTA_VODY_VSTUP = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 1, OFFSET = 0, LENGTH = 4, AMOUNT_MAX = DB1_MAX , dlgPrepocet = (float pY) => pY };
                     TEPLOTA_VODY_VYSTUP = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 1, OFFSET = 4, LENGTH = 4, AMOUNT_MAX = DB1_MAX, dlgPrepocet = (float pY) => pY }; 
                     break;
@@ -62,7 +62,9 @@ namespace nsAspur
                     PRISPOSOBENIE = new Address() { AREA = S7Consts.S7AreaMK, DB_NUMBER = 0, OFFSET = 164, LENGTH = 4, AMOUNT_MAX = MK0_MAX , dlgPrepocet = (float pY) => 2*(pY+64)/119};
                     TLAK_VODY = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 1, OFFSET = 56, LENGTH = 4, AMOUNT_MAX = DB1_MAX , dlgPrepocet = (float pY) => pY };
                     TEPLOTA_VODY_VSTUP = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 1, OFFSET = 60, LENGTH = 4, AMOUNT_MAX = DB1_MAX , dlgPrepocet = (float pY) => pY };
-                    TEPLOTA_VODY_VYSTUP = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 1, OFFSET = 48, LENGTH = 4, AMOUNT_MAX = DB1_MAX , dlgPrepocet = (float pY) => pY }; 
+                    TEPLOTA_VODY_VYSTUP = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 1, OFFSET = 48, LENGTH = 4, AMOUNT_MAX = DB1_MAX , dlgPrepocet = (float pY) => pY };
+                    TEPLOTA_VODY_P1 = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 1, OFFSET = 48, LENGTH = 4, AMOUNT_MAX = DB1_MAX, dlgPrepocet = (float pY) => pY };
+                    TEPLOTA_VODY_P2 = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 1, OFFSET = 52, LENGTH = 4, AMOUNT_MAX = DB1_MAX, dlgPrepocet = (float pY) => pY };
                     break;
                 case ("PEC_D"):
                     DB1_MAX = 68; MK0_MAX = 168;
@@ -105,7 +107,7 @@ namespace nsAspur
                     TEPLOTA_VODY_VYSTUP = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 39, OFFSET = 20, LENGTH = 4, AMOUNT_MAX = DB39_MAX, dlgPrepocet = (float pY) => pY };
                     TEPLOTA_VODY_P1 = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 39, OFFSET = 8, LENGTH = 4, AMOUNT_MAX = DB39_MAX, dlgPrepocet = (float pY) => pY };
                     TEPLOTA_VODY_P2 = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 39, OFFSET = 12, LENGTH = 4, AMOUNT_MAX = DB39_MAX, dlgPrepocet = (float pY) => pY };
-                    TEPLOTA_VODY_PRIMARNY_OKRUH = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 39, OFFSET = 24, LENGTH = 4, AMOUNT_MAX = DB39_MAX, dlgPrepocet = (float pY) => pY };
+                    TEPLOTA_PRIMARNY_OKRUH = new Address() { AREA = S7Consts.S7AreaDB, DB_NUMBER = 39, OFFSET = 24, LENGTH = 4, AMOUNT_MAX = DB39_MAX, dlgPrepocet = (float pY) => pY };
                     break;
             }
         }

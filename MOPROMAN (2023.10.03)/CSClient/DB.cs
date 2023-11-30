@@ -1,5 +1,7 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -80,7 +82,8 @@ namespace nsAspur
        
         public static void ulozDoDB(record pReport)
         {
-            Context.records.Add(pReport);
+                Context.records.Add(pReport);
+            
         }
 
 
@@ -88,19 +91,21 @@ namespace nsAspur
         {
             try
             {
-                //if (!UKLADA_SA)
-                //{
-                //    UKLADA_SA = true;
-                     Context.SaveChanges();
-                    //UKLADA_SA = false;
-                //}
+                if (!UKLADA_SA)
+                {   
+                    UKLADA_SA = true;
+                    Context.SaveChanges();
+                    //Thread.Sleep(1000);
+                    UKLADA_SA = false;
+                }
                 return true;
-
             }
-            catch (Exception ex)
+            catch (UpdateException ex) {
+                throw ex;                
+            }
+            catch
             {
-                //MessageBox.Show(String.Format("Zmeny sa nepodarilo uložiť do databázy z nasledujúceho dôvodu:\n\n" + ex.Message + "\n\n Vykonajte patričné kroky na odstránenie tejto chyby!!!"), "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //UKLADA_SA = false;
+                UKLADA_SA = false;
                 return false;
             }
         }
