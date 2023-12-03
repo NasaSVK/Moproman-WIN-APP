@@ -243,20 +243,22 @@ namespace nsAspur
             float TEPLOTA_VODY_VSTUP = Bytes.TEPLOTA_VODY_VSTUP.getVaue();
             float TEPLOTA_VODY_VYSTUP = Bytes.TEPLOTA_VODY_VYSTUP.getVaue();
 
-            DB.ulozDoDB(new record() {
-                pec_id = this.PEC_ID,
-                date_time = DATE_TIME,
-                napatie = NAPATIE,
-                prud = PRUD,
-                sobert_vstup = SOBERT_VSTUP,
-                sobert_vykon = SOBERT_VYKON,
-                t_voda_vstup = TEPLOTA_VODY_VSTUP,
-                t_voda_vystup = TEPLOTA_VODY_VYSTUP,
-                tlak = TLAK_VODY,
-                rz_pribenie = PRISPOSOBENIE,
-                vykon = VYKON,
-                zmena = Helpers.dajZmenu(DATE_TIME)
-            }); 
+
+            
+                DB.ulozDoDB(new record() {
+                    pec_id = this.PEC_ID,
+                    date_time = DATE_TIME,
+                    napatie = NAPATIE,
+                    prud = PRUD,
+                    sobert_vstup = SOBERT_VSTUP,
+                    sobert_vykon = SOBERT_VYKON,
+                    t_voda_vstup = TEPLOTA_VODY_VSTUP,
+                    t_voda_vystup = TEPLOTA_VODY_VYSTUP,
+                    tlak = TLAK_VODY,
+                    rz_pribenie = PRISPOSOBENIE,
+                    vykon = VYKON,
+                    zmena = Helpers.dajZmenu(DATE_TIME)
+                }); 
             
 
             if (DB.UlozDB())
@@ -609,8 +611,13 @@ namespace nsAspur
                 else
                 this.ItemsColor.Insert(e.Index, new SolidBrush(Color.Black));                
             }
+            catch (IndexOutOfRangeException)
+            {                
+                    this.Loguj("dataGridVew: IndexOutOfRangeException: Index 11 does not have value.", MessageBoxIcon.Warning);           
+            }
 
-            
+
+
 
             /*
             if (e.Index != 0) 

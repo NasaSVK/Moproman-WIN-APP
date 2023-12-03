@@ -5,6 +5,7 @@ using System.Data.Entity.Core;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Policy;
@@ -219,12 +220,11 @@ namespace nsAspur
         }
 
         private void SpracujZaznamDB()
-        {
-            //record newRecord  = new record();
-            //newRecord.id = 0;
-            //DateTime DATE_TIME = DateTime.Now;
-            newRecord.date_time = DateTime.Now;
-
+        {                        
+                //newRecord.id = 0;
+                //DateTime DATE_TIME = DateTime.Now;
+                newRecord.date_time = DateTime.Now;
+            
             //float? NAPATIE;
             if (this.PEC_ID == "PEC_H")
                newRecord.napatie = this.ADDRESSES.NAPATIE?.getVaue(this.BufferDB29);
@@ -343,55 +343,60 @@ namespace nsAspur
 
 
 
-                /*
-                pec_id = this.PEC_ID,
-                date_time = DATE_TIME,
+            /*
+            pec_id = this.PEC_ID,
+            date_time = DATE_TIME,
 
-                napatie = NAPATIE.HasValue ? (float?)Math.Round((float)NAPATIE, 2) : null,
-                prud = PRUD.HasValue ? (float?)Math.Round((float)PRUD, 2) : null,
-                sobert_vstup = SOBERT_VSTUP.HasValue ? (float?)Math.Round((float)SOBERT_VSTUP, 2) : null,
-                sobert_vykon = SOBERT_VYKON.HasValue ? (float?)Math.Round((float)SOBERT_VYKON, 2) : null,
-                t_voda_vstup = TEPLOTA_VODY_VSTUP.HasValue ? (float?)Math.Round((float)TEPLOTA_VODY_VSTUP, 2) : null,
-                t_voda_vystup = TEPLOTA_VODY_VYSTUP.HasValue ? (float?)Math.Round((float)TEPLOTA_VODY_VYSTUP, 2) : null,
-                tlak = TLAK_VODY.HasValue ? (float?)Math.Round((float)TLAK_VODY, 2) : null,
-                rz_pribenie = PRISPOSOBENIE.HasValue ? (float?)Math.Round((float)PRISPOSOBENIE, 2) : null,
-                vykon = VYKON.HasValue ? (float?)Math.Round((float)VYKON, 2) : null,
+            napatie = NAPATIE.HasValue ? (float?)Math.Round((float)NAPATIE, 2) : null,
+            prud = PRUD.HasValue ? (float?)Math.Round((float)PRUD, 2) : null,
+            sobert_vstup = SOBERT_VSTUP.HasValue ? (float?)Math.Round((float)SOBERT_VSTUP, 2) : null,
+            sobert_vykon = SOBERT_VYKON.HasValue ? (float?)Math.Round((float)SOBERT_VYKON, 2) : null,
+            t_voda_vstup = TEPLOTA_VODY_VSTUP.HasValue ? (float?)Math.Round((float)TEPLOTA_VODY_VSTUP, 2) : null,
+            t_voda_vystup = TEPLOTA_VODY_VYSTUP.HasValue ? (float?)Math.Round((float)TEPLOTA_VODY_VYSTUP, 2) : null,
+            tlak = TLAK_VODY.HasValue ? (float?)Math.Round((float)TLAK_VODY, 2) : null,
+            rz_pribenie = PRISPOSOBENIE.HasValue ? (float?)Math.Round((float)PRISPOSOBENIE, 2) : null,
+            vykon = VYKON.HasValue ? (float?)Math.Round((float)VYKON, 2) : null,
 
-                teplota_p1 = TEPLOTA_P1.HasValue ? (float?)Math.Round((float)TEPLOTA_P1, 2) : null,
-                teplota_p2 = TEPLOTA_P2.HasValue ? (float?)Math.Round((float)TEPLOTA_P2, 2) : null,
-                prietok_vody = PRIETOK.HasValue ? (float?)Math.Round((float)PRIETOK, 2) : null,
-                frekvencia = FREKVENCIA.HasValue ? (float?)Math.Round((float)FREKVENCIA, 2) : null,
-                teplota_okruh = TEPLOTA_OKRUH.HasValue ? (float?)Math.Round((float)TEPLOTA_OKRUH, 2) : null,
+            teplota_p1 = TEPLOTA_P1.HasValue ? (float?)Math.Round((float)TEPLOTA_P1, 2) : null,
+            teplota_p2 = TEPLOTA_P2.HasValue ? (float?)Math.Round((float)TEPLOTA_P2, 2) : null,
+            prietok_vody = PRIETOK.HasValue ? (float?)Math.Round((float)PRIETOK, 2) : null,
+            frekvencia = FREKVENCIA.HasValue ? (float?)Math.Round((float)FREKVENCIA, 2) : null,
+            teplota_okruh = TEPLOTA_OKRUH.HasValue ? (float?)Math.Round((float)TEPLOTA_OKRUH, 2) : null,
 
-                zmena = Helpers.dajZmenu(DATE_TIME)
-            };*/
+            zmena = Helpers.dajZmenu(DATE_TIME)
+        };*/
 
-
-            try {                
-                //DB.ulozDoDB(UkladanyZaznam);
-                DB.ulozDoDB(newRecord);
-            }            
-            catch (System.InvalidOperationException)
-            {                
-                this.Loguj("########################################################", MessageBoxIcon.Warning);
-                this.Loguj(this.PEC_ID + ": SNAHA OPATOVNE UKALDANIE ZAZNAMU DO DB PO CHYBE UKLADANIA!", MessageBoxIcon.Warning);
-                this.Loguj("########################################################", MessageBoxIcon.Warning);
-                //DB.ulozDoDB(UkladanyZaznam);
-                tmrRead.Enabled = false;
-                Thread.Sleep(300);
-                tmrRead.Enabled = true;
-            };
-
-
-            try
+            using (mopromanDBEntities context = new mopromanDBEntities())
             {
-                if (DB.UlozDB())
+                try
                 {
-                    //aktualizujDtg();
+                    //DB.ulozDoDB(newRecord);
+                    context.records.Add(newRecord);
+                }
+                catch (System.InvalidOperationException)
+                {
+                    this.Loguj("########################################################", MessageBoxIcon.Warning);
+                    this.Loguj(this.PEC_ID + ": SNAHA OPATOVNE UKALDANIE ZAZNAMU DO DB PO CHYBE UKLADANIA!", MessageBoxIcon.Warning);
+                    this.Loguj("########################################################", MessageBoxIcon.Warning);
+                    //DB.ulozDoDB(UkladanyZaznam);
+                    tmrRead.Enabled = false;
+                    Thread.Sleep(300);
+                    tmrRead.Enabled = true;
+                    return;
+                };
+
+                try
+                {
+                    context.SaveChanges();
                     this.dlgZaznamDoGUI(newRecord);
                     this.Loguj(this.PEC_ID + ": Zaznam ulozeny do DB!", MessageBoxIcon.Information);
+                }                                
+                catch (UpdateException ex)
+                {
+                    newRecord.id++;
+                    MessageBox.Show("DODATOCNE INKREMENTOVANE ID-ka", "Warrning", MessageBoxButtons.OK);
                 }
-                else
+                catch (Exception ex)
                 {
                     this.Loguj("### ### ### ### ### ###", MessageBoxIcon.Error);
                     this.Loguj(this.PEC_ID + " Zaznam sa nepodarilo ulozit do DB!", MessageBoxIcon.Error);
@@ -401,11 +406,6 @@ namespace nsAspur
                     Thread.Sleep(slp);
                     tmrRead.Enabled = true;
                 }
-            }
-            catch (UpdateException ex)
-            {
-                newRecord.id++;
-                MessageBox.Show("DODATOCNE INKREMENTOVANE ID-ka","Warrning",MessageBoxButtons.OK);
             }
         }
 
