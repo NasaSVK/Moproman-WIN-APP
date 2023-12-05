@@ -613,7 +613,7 @@ namespace nsAspur
             }
             catch (IndexOutOfRangeException)
             {                
-                    this.Loguj("dataGridVew: IndexOutOfRangeException: Index 11 does not have value.", MessageBoxIcon.Warning);           
+                    this.Loguj("dataGridVew: IndexOutOfRangeException: Index 11,12,13 does not have value.", MessageBoxIcon.Warning);           
             }
 
 

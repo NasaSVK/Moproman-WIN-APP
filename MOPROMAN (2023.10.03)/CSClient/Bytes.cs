@@ -29,9 +29,12 @@ namespace nsAspur
         public int AMOUNT_MAX;
         public dlgRealActionReal dlgPrepocet;
 
-        public float getVaue(byte[] pBuffer) { 
-            
-            return S7.GetRealAt(pBuffer, OFFSET);
+        public float getVaue(byte[] pBuffer) {
+            float prepocet = dlgPrepocet(S7.GetRealAt(pBuffer, OFFSET));
+            if (prepocet < 0) prepocet = 0;
+            return prepocet;
+            //return S7.GetRealAt(pBuffer, OFFSET);
+
         }
 
         public float getVaue()
