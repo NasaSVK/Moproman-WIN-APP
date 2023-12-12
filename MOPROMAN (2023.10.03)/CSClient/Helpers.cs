@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Windows.Forms;
 
-namespace nsAspur
+namespace nsMOPROMAN
 {
 
     delegate void dlgLoguj(string text, MessageBoxIcon pTyp);

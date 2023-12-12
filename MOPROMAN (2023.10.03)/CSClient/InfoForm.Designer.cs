@@ -1,4 +1,4 @@
-﻿namespace nsAspur
+﻿namespace nsMOPROMAN
 {
     partial class InfoForm
     {
@@ -88,7 +88,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::nsAspur.Properties.Resources.logo;
+            this.pictureBox2.Image = global::nsMOPROMAN.Properties.Resources.logo;
             this.pictureBox2.Location = new System.Drawing.Point(21, 17);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(227, 39);
@@ -149,7 +149,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::nsAspur.Properties.Resources.FLAME;
+            this.pictureBox1.Image = global::nsMOPROMAN.Properties.Resources.FLAME;
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(257, 151);
             this.pictureBox1.Name = "pictureBox1";

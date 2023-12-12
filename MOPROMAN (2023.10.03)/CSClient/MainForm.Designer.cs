@@ -1,4 +1,4 @@
-﻿namespace nsAspur
+﻿namespace nsMOPROMAN
 {
     partial class MainForm
     {
@@ -136,7 +136,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackgroundImage = global::nsAspur.Properties.Resources.logo1;
+            this.pictureBox2.BackgroundImage = global::nsMOPROMAN.Properties.Resources.logo1;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox2.Location = new System.Drawing.Point(700, 9);
             this.pictureBox2.Name = "pictureBox2";
@@ -166,7 +166,7 @@
             // btnInfo
             // 
             this.btnInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnInfo.BackgroundImage = global::nsAspur.Properties.Resources.FLAME;
+            this.btnInfo.BackgroundImage = global::nsMOPROMAN.Properties.Resources.FLAME;
             this.btnInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnInfo.Location = new System.Drawing.Point(970, 4);

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace nsAspur
+namespace nsMOPROMAN
 {
     using System;
     using System.Data.Entity;

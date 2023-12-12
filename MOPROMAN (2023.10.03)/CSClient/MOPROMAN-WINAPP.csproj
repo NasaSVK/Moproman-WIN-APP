@@ -8,8 +8,8 @@
     <ProjectGuid>{08286143-5C05-43FB-B407-5793451CE414}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>nsAspur</RootNamespace>
-    <AssemblyName>ASPUR</AssemblyName>
+    <RootNamespace>nsMOPROMAN</RootNamespace>
+    <AssemblyName>MOPROMAN-WINAPP</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -163,8 +163,6 @@
     <None Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ASPUR85.ico" />
-    <Content Include="ASPUR85.png" />
     <Content Include="FLAME.ico" />
     <Content Include="mopromanDBEntityDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

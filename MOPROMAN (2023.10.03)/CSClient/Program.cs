@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace nsAspur
+namespace nsMOPROMAN
 {
 
     //http://www.codescratcher.com/windows-forms/single-instance-windows-form-application-in-c/

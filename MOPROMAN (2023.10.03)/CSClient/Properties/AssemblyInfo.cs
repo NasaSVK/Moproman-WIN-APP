@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ASPUR")]
+[assembly: AssemblyTitle("MOPROMAN-WINAPP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dusan Nemcek (NASA Slovakia s.r.o.)")]
-[assembly: AssemblyProduct("ASPUR - Automatické skrutkovanie pomocou robotov Universal Robots")]
+[assembly: AssemblyProduct("MOPROMAN-WINAPP")]
 [assembly: AssemblyCopyright("Copyright ©2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.97.0.0")]
-[assembly: AssemblyFileVersion("0.98.0.0")]
+[assembly: AssemblyVersion("0.99.0.0")]
+[assembly: AssemblyFileVersion("0.99.0.0")]

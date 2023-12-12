@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1082
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPUR_APP", "CSClient\ASPUR_APP.csproj", "{08286143-5C05-43FB-B407-5793451CE414}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MOPROMAN-WINAPP", "CSClient\MOPROMAN-WINAPP.csproj", "{08286143-5C05-43FB-B407-5793451CE414}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

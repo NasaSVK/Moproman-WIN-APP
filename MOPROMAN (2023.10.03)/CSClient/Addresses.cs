@@ -6,7 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nsAspur
+namespace nsMOPROMAN
 {
     internal class Addresses
     {

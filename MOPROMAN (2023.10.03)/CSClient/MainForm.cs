@@ -16,7 +16,7 @@ using System.Runtime.CompilerServices;
 
 //Automatické skrutkovanie pomocou robotov Universal Robots
 
-namespace nsAspur
+namespace nsMOPROMAN
 {
     /*ANCHOR*/
     /*https://stackoverflow.com/questions/15131779/resize-controls-with-form-resize*/
@@ -173,106 +173,9 @@ namespace nsAspur
             }));
         }
 
-        private void ReadArea()
-        {
-            int ResultMK,ResultDB = 0;
-            lbBytesRead.Text = "";
 
-            int SizeReadDB = 0;
-            int SizeReadMK = 0;
+    
 
-            //#################################################################################################################
-            try
-            {
-                ResultDB = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.AmountDB, S7Consts.S7WLByte, BufferDB, ref SizeReadDB);
-                ResultMK = Client.ReadArea(S7Consts.S7AreaMK, 000, 0, this.AmountMK, S7Consts.S7WLByte, BufferMK, ref SizeReadMK);
-            } catch {
-                
-                ResultMK = -999;
-            }
-            //Result = Client.ReadArea(S7Consts.S7AreaDB, DB_Number, 0, this.Amount, S7Consts.S7WLByte, Buffer, ref SizeRead);
-            //#################################################################################################################
-
-            //ak je resut OK (0) vypise do logu OK, ak nie je OK vypisem nieco ine
-            this.ShowResultInfo(this.IP_PLC, ResultDB + ResultMK);            
-
-            if (ResultDB == 0  && ResultMK == 0 ) {
-                ErrorRead = 0;
-                this.Invoke(new Action(() =>
-                {
-                    //lbPrecHodnotaRaw.Text = "DB:" + this.CUR_VALUE_BUF_DB.Trim() + " /  " + "MK:" + this.CUR_VALUE_BUF_MK.Trim(); //vypisem orezany buffer                     
-                    //lbBytesRead.Text = "DB:" + SizeReadDB.ToString() + " / " + "MK:" + SizeReadMK.ToString();  //kolko bytov bolo precitanych
-                    this.strucnyVypisGUI(
-                        "DB:" + this.CUR_VALUE_BUF_DB.Trim() + " /  " + "MK:" + this.CUR_VALUE_BUF_MK.Trim(),                         
-                        "DB:" + SizeReadDB.ToString() + " / " + "MK:" + SizeReadMK.ToString());
-                }));
-                    SPRACOVAVAM = true;
-                    SpracujZaznamDB();             
-                    SPRACOVAVAM = false;                        
-            }
-        else
-        {
-            this.ErrorRead++;
-            this.Loguj("Chyba pri čítaní hodnoty z PLC", MessageBoxIcon.Error);
-
-            //Thread.Sleep(this.ErrInterval);
-            //po troch chybach citania sa odpajam
-            if (ErrorRead >= MaxErrCount)
-            {
-                Thread.Sleep(ErrInterval);
-                ErrorRead = 0;
-                odpojiť();
-                //kazdych 5 sekund sa snazi pripojit k plc
-                PripojKPLC(null, null);
-            }
-        }
-    }
-
-        private void SpracujZaznamDB()
-        {
-
-            DateTime DATE_TIME = DateTime.Now;
-            float NAPATIE = Bytes.NAPATIE.getVaue();
-            float PRUD = Bytes.PRUD.getVaue();
-            float SOBERT_VSTUP = Bytes.SOBERT_VSTUP.getVaue();
-            float SOBERT_VYKON = Bytes.SOBERT_VYKON.getVaue();                       
-            float VYKON = Bytes.VYKON.getVaue();
-            float PRISPOSOBENIE = Bytes.PRISPOSOBENIE.getVaue();
-            
-            float TLAK_VODY = Bytes.TLAK_VODY.getVaue();
-            float TEPLOTA_VODY_VSTUP = Bytes.TEPLOTA_VODY_VSTUP.getVaue();
-            float TEPLOTA_VODY_VYSTUP = Bytes.TEPLOTA_VODY_VYSTUP.getVaue();
-
-
-            
-                DB.ulozDoDB(new record() {
-                    pec_id = this.PEC_ID,
-                    date_time = DATE_TIME,
-                    napatie = NAPATIE,
-                    prud = PRUD,
-                    sobert_vstup = SOBERT_VSTUP,
-                    sobert_vykon = SOBERT_VYKON,
-                    t_voda_vstup = TEPLOTA_VODY_VSTUP,
-                    t_voda_vystup = TEPLOTA_VODY_VYSTUP,
-                    tlak = TLAK_VODY,
-                    rz_pribenie = PRISPOSOBENIE,
-                    vykon = VYKON,
-                    zmena = Helpers.dajZmenu(DATE_TIME)
-                }); 
-            
-
-            if (DB.UlozDB())
-            {
-                aktualizujDtg();
-                this.Loguj("Zaznam ulozeny do DB!", MessageBoxIcon.Information);
-            }
-            else
-            {
-                this.Loguj("### ### ###", MessageBoxIcon.Error);
-                this.Loguj("Zaznam sa nepodarilo ulozit do DB!", MessageBoxIcon.Error);
-                this.Loguj("### ### ###", MessageBoxIcon.Error);
-            }            
-        }
         //__________________________________________________________________________________________________________________________
         
         void ZAPISdoGUI(List<record> pZoznam) {
@@ -305,35 +208,7 @@ namespace nsAspur
            }
         }
 
-        private void PripojKPLC(Object myObject, EventArgs myEventArgs)
-        {
-        int Result = Rack = Slot = 0;
-            Slot = 2;
-
-        Result = Client.ConnectTo(IP_PLC, Rack, Slot);
-
-        //ShowResultInfo(Result); //NEPODARILO SA PRIPOJIT
-
-        if (Result == 0)
-        {
-            this.Loguj("Connected", MessageBoxIcon.Information);
-            //vypnem casovac snaziaci sa o spojenie kazdych 5 sekund
-            if (tmrErr.Enabled == true) tmrErr.Enabled = false;            
-            TextError.ForeColor = Color.Black;
-            TextError.Text = " PDU Negotiated : " + Client.PduSizeNegotiated.ToString();                
-            this.ReadArea();
-            tmrRead.Enabled = true;
-        }
-        else
-        {          
-            if (tmrRead.Enabled == true) tmrRead.Enabled = false;
-            //v pripade chyby spustim druhy casovac nastaveny na periodu 5s a tri krat v intervale jednej sekundy sa pokusim pripojit
-            if (tmrErr.Enabled == false) tmrErr.Enabled = true;
-
-            this.Loguj("Nepodarilo sa pripojiť k PLC!", MessageBoxIcon.Error);
-        }
-    }
-
+       
     void nacitajConfig()
     {
         this.Rack = 0;
@@ -391,11 +266,6 @@ namespace nsAspur
             }                 
     }
 
-
-    private void read(Object myObject, EventArgs myEventArgs) {
-
-        ReadArea();
-    }
 
     private void odpojiť()
     {
@@ -465,7 +335,7 @@ namespace nsAspur
             }
             else
             {
-                btnStartStopA.Text = "PT A";
+                btnStartStopA.Text = "PS A";
                 PEC_A.AktivujTimer();                
                 this.Loguj("*** START PEC_A ***", MessageBoxIcon.Warning);
             }
@@ -480,7 +350,7 @@ namespace nsAspur
             }
             else
             {
-                btnStartStopB.Text = "PT B";
+                btnStartStopB.Text = "PS B";
                 PEC_B.AktivujTimer();
                 this.Loguj("*** START PEC_B ***", MessageBoxIcon.Warning);
             }
@@ -495,7 +365,7 @@ namespace nsAspur
             }
             else
             {
-                btnStartStopC.Text = "PT C";
+                btnStartStopC.Text = "PS C";
                 PEC_C.AktivujTimer();
                 this.Loguj("*** START PEC_C ***", MessageBoxIcon.Warning);
             }
@@ -510,7 +380,7 @@ namespace nsAspur
             }
             else
             {
-                btnStartStopD.Text = "PT D";
+                btnStartStopD.Text = "PS D";
                 PEC_D.AktivujTimer();
                 this.Loguj("*** START PEC_D ***", MessageBoxIcon.Warning);
             }
@@ -526,7 +396,7 @@ namespace nsAspur
             }
             else
             {
-                btnStartStopG.Text = "PT G";
+                btnStartStopG.Text = "PS G";
                 PEC_G.AktivujTimer();
                 this.Loguj("*** START PEC_G ***", MessageBoxIcon.Warning);
             }
@@ -542,7 +412,7 @@ namespace nsAspur
             }
             else
             {
-                btnStartStopH.Text = "PT H";
+                btnStartStopH.Text = "PS H";
                 PEC_H.AktivujTimer();
                 this.Loguj("*** START PEC_H ***", MessageBoxIcon.Warning);
             }
@@ -558,7 +428,7 @@ namespace nsAspur
     private void btnCitaj_Click(object sender, EventArgs e)
     {
             //this.ReadArea();
-            SpracujZaznamDB();
+            //SpracujZaznamDB();
     }
 
 

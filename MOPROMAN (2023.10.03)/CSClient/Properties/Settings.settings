@@ -5,15 +5,6 @@
     <Setting Name="SAVING_DELAY" Type="System.String" Scope="User">
       <Value Profile="(Default)">1200</Value>
     </Setting>
-    <Setting Name="MaxErrCount" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">3</Value>
-    </Setting>
-    <Setting Name="ErrInt" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">5000</Value>
-    </Setting>
-    <Setting Name="Refresh" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1000</Value>
-    </Setting>
     <Setting Name="DISPLAYED_RECS" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
@@ -23,8 +14,17 @@
     <Setting Name="TimeOut" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10000</Value>
     </Setting>
+    <Setting Name="MaxErrCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="ErrInt" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
+    <Setting Name="Refresh" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
     <Setting Name="IP_PLC" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.45.12</Value>
+      <Value Profile="(Default)">192.168.45.13</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace nsAspur.Properties {
+namespace nsMOPROMAN.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -32,42 +32,6 @@ namespace nsAspur.Properties {
             }
             set {
                 this["SAVING_DELAY"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public int MaxErrCount {
-            get {
-                return ((int)(this["MaxErrCount"]));
-            }
-            set {
-                this["MaxErrCount"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
-        public int ErrInt {
-            get {
-                return ((int)(this["ErrInt"]));
-            }
-            set {
-                this["ErrInt"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public int Refresh {
-            get {
-                return ((int)(this["Refresh"]));
-            }
-            set {
-                this["Refresh"] = value;
             }
         }
         
@@ -109,7 +73,43 @@ namespace nsAspur.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.45.12")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int MaxErrCount {
+            get {
+                return ((int)(this["MaxErrCount"]));
+            }
+            set {
+                this["MaxErrCount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        public int ErrInt {
+            get {
+                return ((int)(this["ErrInt"]));
+            }
+            set {
+                this["ErrInt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int Refresh {
+            get {
+                return ((int)(this["Refresh"]));
+            }
+            set {
+                this["Refresh"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.45.13")]
         public string IP_PLC {
             get {
                 return ((string)(this["IP_PLC"]));

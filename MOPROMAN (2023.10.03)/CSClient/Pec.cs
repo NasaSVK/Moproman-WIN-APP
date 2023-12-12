@@ -18,7 +18,7 @@ using System.Windows.Forms.VisualStyles;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
-namespace nsAspur
+namespace nsMOPROMAN
 {    
     internal class Pec
     {
