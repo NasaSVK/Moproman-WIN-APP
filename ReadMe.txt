@@ -15,7 +15,6 @@ Beluša-Hloža 2520
 DB:
 Name: MoProManDB
 Type: MSSQL
-Password: B******2****
 Server Name: POV-SVR-025\WINCC
 
 CONNECTION STRING: 
@@ -24,7 +23,6 @@ Data Source=POV-SVR-025\WINCC;Initial Catalog=mopromanDB;Integrated Security=Tru
 SERVER:
 IP:192.168.45.1
 Login: BOOSTER\nasa.slovakia1
-Pass: Password: B******2****
 
 IPv4 Address. . . . . . . . . . . : 192.168.45.1(Preferred)
 Subnet Mask . . . . . . . . . . . : 255.255.255.0
@@ -37,9 +35,5 @@ SIMATIC S7-300
 
 SIMATIC S7-120
 192.168.45.*,  RACK 0,  SLOT 0
-
-
-
-podstatný stlpec C v tabulke
 
 
