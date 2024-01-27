@@ -54,7 +54,6 @@
             this.btnStop = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbxLogs = new System.Windows.Forms.ListBox();
-            this.btnCitaj = new System.Windows.Forms.Button();
             this.lbPrecHodnota = new System.Windows.Forms.Label();
             this.lbPrecHodnotaText = new System.Windows.Forms.Label();
             this.c = new System.Windows.Forms.Label();
@@ -72,10 +71,10 @@
             this.TextError.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.TextError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.TextError.ForeColor = System.Drawing.Color.Black;
-            this.TextError.Location = new System.Drawing.Point(0, 555);
+            this.TextError.Location = new System.Drawing.Point(0, 546);
             this.TextError.Name = "TextError";
             this.TextError.ReadOnly = true;
-            this.TextError.Size = new System.Drawing.Size(1025, 20);
+            this.TextError.Size = new System.Drawing.Size(1025, 29);
             this.TextError.TabIndex = 21;
             // 
             // button1
@@ -107,7 +106,7 @@
             this.panel2.Controls.Add(this.lbBytesRead);
             this.panel2.Controls.Add(this.btnInfo);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 493);
+            this.panel2.Location = new System.Drawing.Point(0, 484);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1025, 62);
             this.panel2.TabIndex = 61;
@@ -190,20 +189,19 @@
             this.panel1.Controls.Add(this.dgvRecords);
             this.panel1.Controls.Add(this.btnStop);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.btnCitaj);
             this.panel1.Controls.Add(this.lbPrecHodnota);
             this.panel1.Controls.Add(this.lbPrecHodnotaText);
             this.panel1.Controls.Add(this.c);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1025, 493);
+            this.panel1.Size = new System.Drawing.Size(1025, 484);
             this.panel1.TabIndex = 62;
             // 
             // btnStartStopH
             // 
             this.btnStartStopH.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStartStopH.Location = new System.Drawing.Point(494, 438);
+            this.btnStartStopH.Location = new System.Drawing.Point(376, 429);
             this.btnStartStopH.Name = "btnStartStopH";
             this.btnStartStopH.Size = new System.Drawing.Size(41, 34);
             this.btnStartStopH.TabIndex = 28;
@@ -214,7 +212,7 @@
             // btnStartStopG
             // 
             this.btnStartStopG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStartStopG.Location = new System.Drawing.Point(447, 438);
+            this.btnStartStopG.Location = new System.Drawing.Point(329, 429);
             this.btnStartStopG.Name = "btnStartStopG";
             this.btnStartStopG.Size = new System.Drawing.Size(41, 34);
             this.btnStartStopG.TabIndex = 27;
@@ -225,7 +223,7 @@
             // btnStartStopD
             // 
             this.btnStartStopD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStartStopD.Location = new System.Drawing.Point(400, 438);
+            this.btnStartStopD.Location = new System.Drawing.Point(282, 429);
             this.btnStartStopD.Name = "btnStartStopD";
             this.btnStartStopD.Size = new System.Drawing.Size(41, 34);
             this.btnStartStopD.TabIndex = 26;
@@ -236,7 +234,7 @@
             // btnStartStopC
             // 
             this.btnStartStopC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStartStopC.Location = new System.Drawing.Point(353, 438);
+            this.btnStartStopC.Location = new System.Drawing.Point(235, 429);
             this.btnStartStopC.Name = "btnStartStopC";
             this.btnStartStopC.Size = new System.Drawing.Size(41, 34);
             this.btnStartStopC.TabIndex = 25;
@@ -247,7 +245,7 @@
             // btnStartStopB
             // 
             this.btnStartStopB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStartStopB.Location = new System.Drawing.Point(306, 438);
+            this.btnStartStopB.Location = new System.Drawing.Point(188, 429);
             this.btnStartStopB.Name = "btnStartStopB";
             this.btnStartStopB.Size = new System.Drawing.Size(41, 34);
             this.btnStartStopB.TabIndex = 24;
@@ -258,7 +256,7 @@
             // btnStartStopA
             // 
             this.btnStartStopA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStartStopA.Location = new System.Drawing.Point(259, 438);
+            this.btnStartStopA.Location = new System.Drawing.Point(141, 429);
             this.btnStartStopA.Name = "btnStartStopA";
             this.btnStartStopA.Size = new System.Drawing.Size(41, 34);
             this.btnStartStopA.TabIndex = 23;
@@ -270,7 +268,7 @@
             // 
             this.lbPrecHodnotaRaw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbPrecHodnotaRaw.AutoSize = true;
-            this.lbPrecHodnotaRaw.Location = new System.Drawing.Point(130, 402);
+            this.lbPrecHodnotaRaw.Location = new System.Drawing.Point(130, 393);
             this.lbPrecHodnotaRaw.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbPrecHodnotaRaw.Name = "lbPrecHodnotaRaw";
             this.lbPrecHodnotaRaw.Size = new System.Drawing.Size(102, 13);
@@ -306,7 +304,7 @@
             // btnStop
             // 
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStop.Location = new System.Drawing.Point(132, 438);
+            this.btnStop.Location = new System.Drawing.Point(14, 429);
             this.btnStop.Margin = new System.Windows.Forms.Padding(2);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(107, 34);
@@ -327,7 +325,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(1016, 67);
+            this.groupBox1.Size = new System.Drawing.Size(1016, 58);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Logs";
@@ -336,26 +334,13 @@
             // 
             this.lbxLogs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbxLogs.ItemHeight = 15;
-            this.lbxLogs.Location = new System.Drawing.Point(2, 18);
+            this.lbxLogs.ItemHeight = 25;
+            this.lbxLogs.Location = new System.Drawing.Point(2, 29);
             this.lbxLogs.Margin = new System.Windows.Forms.Padding(15, 16, 15, 16);
             this.lbxLogs.Name = "lbxLogs";
-            this.lbxLogs.Size = new System.Drawing.Size(1012, 47);
+            this.lbxLogs.Size = new System.Drawing.Size(1012, 27);
             this.lbxLogs.TabIndex = 0;
             this.lbxLogs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbxLogs_DrawItem);
-            // 
-            // btnCitaj
-            // 
-            this.btnCitaj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCitaj.Enabled = false;
-            this.btnCitaj.Location = new System.Drawing.Point(11, 438);
-            this.btnCitaj.Margin = new System.Windows.Forms.Padding(2);
-            this.btnCitaj.Name = "btnCitaj";
-            this.btnCitaj.Size = new System.Drawing.Size(94, 34);
-            this.btnCitaj.TabIndex = 16;
-            this.btnCitaj.Text = "Čítaj";
-            this.btnCitaj.UseVisualStyleBackColor = true;
-            this.btnCitaj.Click += new System.EventHandler(this.btnCitaj_Click);
             // 
             // lbPrecHodnota
             // 
@@ -364,7 +349,7 @@
             this.lbPrecHodnota.Location = new System.Drawing.Point(130, 616);
             this.lbPrecHodnota.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbPrecHodnota.Name = "lbPrecHodnota";
-            this.lbPrecHodnota.Size = new System.Drawing.Size(76, 13);
+            this.lbPrecHodnota.Size = new System.Drawing.Size(120, 24);
             this.lbPrecHodnota.TabIndex = 15;
             this.lbPrecHodnota.Text = "0x00000000";
             this.lbPrecHodnota.Visible = false;
@@ -384,7 +369,7 @@
             // 
             this.c.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.c.AutoSize = true;
-            this.c.Location = new System.Drawing.Point(9, 402);
+            this.c.Location = new System.Drawing.Point(9, 393);
             this.c.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.c.Name = "c";
             this.c.Size = new System.Drawing.Size(126, 13);
@@ -440,7 +425,6 @@
         private System.Windows.Forms.Label lbPrecHodnota;
         private System.Windows.Forms.Label lbPrecHodnotaText;
         private System.Windows.Forms.Label c;
-        private System.Windows.Forms.Button btnCitaj;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox lbxLogs;
         private System.Windows.Forms.Button btnStop;

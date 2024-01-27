@@ -88,10 +88,20 @@ namespace nsMOPROMAN
             this.Invoke(new Action(() =>
             {
                 dgvRecords.DataSource = null;
-                //lstRecords.Reverse();
-                dgvRecords.DataSource = lstRecords; //lstRecords.Reverse<record>().ToList();
-                //dgvRecords.Refresh();
-            }));                
+                try
+                {
+                    //lstRecords.Reverse();                
+                    dgvRecords.DataSource = lstRecords; //lstRecords.Reverse<record>().ToList();
+                    //dgvRecords.Refresh();
+                    //throw new IndexOutOfRangeException("TEST IOORE");
+                }
+                catch (IndexOutOfRangeException ex) {
+                    
+                    this.Loguj("IndexOutOfRangexception: \n" + ex.Message,  MessageBoxIcon.Warning);
+                }
+            }
+            )
+            );                
         }
 
         public MainForm(string[] args)
@@ -126,9 +136,10 @@ namespace nsMOPROMAN
 
 
             //https://ourcodeworld.com/articles/read/506/winforms-cross-thread-operation-not-valid-control-controlname-accessed-from-a-thread-other-than-the-thread-it-was-created-on
+            //TESTOVACIE VLAKONO            
             new Thread(() =>
             {
-                Thread.Sleep(TimeOut);
+                //Thread.Sleep(TimeOut);
                 //this.Invoke(new Action(() => this.WindowState = FormWindowState.Minimized));                
                 //MessageBox.Show("Vlakno spustene!");
             }).Start();
@@ -422,13 +433,6 @@ namespace nsMOPROMAN
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
     {
         this.odpojiť();
-    }
-
-    //klikacie citanie
-    private void btnCitaj_Click(object sender, EventArgs e)
-    {
-            //this.ReadArea();
-            //SpracujZaznamDB();
     }
 
 
